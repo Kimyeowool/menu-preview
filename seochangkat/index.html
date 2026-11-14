@@ -285,7 +285,7 @@ body.editing .photo.selected { outline: 3px solid var(--crumb); cursor: move; }
 <section class="block">
   <div class="wrap">
     <div class="eyebrow">GALLERY</div>
-    <div class="gallery-head"><h2>매장 사진</h2><button class="btn" type="button" id="edit-toggle">사진 편집</button></div>
+    <div class="gallery-head"><h2>매장 사진</h2></div>
     <div class="photos">
       <div class="photo filled" id="photo-front" role="img" aria-label="서창카츠 간판과 매장 외관" data-zoom="1.50" style="background-position: 15.7% 45.3%; background-size: 206.6% auto;"><span class="cap">수제돈카츠 · 삼호로 202</span></div>
       <div class="photo filled" id="photo-rosu" role="img" aria-label="흑미밥, 샐러드, 장국과 함께 나오는 로스카츠 한 상" data-zoom="1.45" style="background-position: 0% 55%; background-size: 193% auto;"><span class="cap">로스카츠 한 상</span></div>
@@ -367,14 +367,6 @@ body.editing .photo.selected { outline: 3px solid var(--crumb); cursor: move; }
   <a class="btn" href="#menu">메뉴</a>
   <a class="btn primary" href="https://map.naver.com/p/search/%EC%84%9C%EC%B0%BD%EC%B9%B4%EC%B8%A0" target="_blank" rel="noopener">길찾기</a>
 </div></nav>
-<div class="editbar" id="editbar" hidden=""><div class="wrap">
-  <p class="hint" id="edit-hint">고른 사진: 수제돈카츠 · 삼호로 202 · 끌어서 위치를 옮기거나 아래 버튼으로 바꿔보세요.</p>
-  <label class="btn" for="photo-file">사진 바꾸기</label><input type="file" id="photo-file" accept="image/*" hidden="">
-  <label class="zoom" for="photo-zoom">확대 <input type="range" id="photo-zoom" min="1" max="3" step="0.05" value="1"></label>
-  <button class="btn" type="button" id="cap-edit">라벨 수정</button>
-  <button class="btn primary" type="button" id="edit-save">저장하기</button>
-  <button class="btn" type="button" id="edit-done">편집 끝내기</button>
-</div></div>
 <div class="toast" id="toast" hidden="">저장했어요 · 다운로드 폴더를 확인하세요</div>
 
 <script>
@@ -479,154 +471,4 @@ document.getElementById("copy-addr").addEventListener("click", () => {
   (navigator.clipboard ? navigator.clipboard.writeText(ADDR) : Promise.reject()).then(() => toast("주소 복사됨"), () => toast(ADDR));
 });
 </script>
-<script>
-// 사진 편집 모드: 사진 고르기 → 끌어서 위치 조정 · 확대 · 교체 · 라벨 수정 → 저장하면 수정된 파일을 내려받음
-(function () {
-  const bar = document.getElementById("editbar"), hint = document.getElementById("edit-hint");
-  const fileIn = document.getElementById("photo-file"), zoomIn = document.getElementById("photo-zoom");
-  const photos = [...document.querySelectorAll(".photo")];
-  const state = new Map();
-  let editing = false, sel = null, drag = null;
-
-  function readState(p) {
-    if (state.has(p)) return Promise.resolve(state.get(p));
-    const cs = getComputedStyle(p), m = cs.backgroundImage.match(/url\("?(.*?)"?\)$/);
-    const [x, y] = cs.backgroundPosition.split(" ").map(parseFloat);
-    const s = { iw: 1, ih: 1, x: isNaN(x) ? 50 : x, y: isNaN(y) ? 50 : y, z: parseFloat(p.dataset.zoom || "1") };
-    state.set(p, s);
-    if (!m) return Promise.resolve(s);
-    return new Promise(res => {
-      const img = new Image();
-      img.onload = () => { s.iw = img.naturalWidth; s.ih = img.naturalHeight; res(s); };
-      img.onerror = () => res(s);
-      img.src = m[1];
-    });
-  }
-  function bgSize(p, s) {
-    const cw = p.clientWidth, ch = p.clientHeight, k = Math.max(cw / s.iw, ch / s.ih) * s.z;
-    return { cw, ch, bw: s.iw * k, bh: s.ih * k };
-  }
-  function apply(p, s) {
-    p.style.backgroundPosition = s.x.toFixed(1) + "% " + s.y.toFixed(1) + "%";
-    if (s.z > 1.001) p.style.backgroundSize = (bgSize(p, s).bw / p.clientWidth * 100).toFixed(1) + "% auto";
-    else p.style.removeProperty("background-size");
-    p.dataset.zoom = s.z.toFixed(2);
-  }
-  function label(p) { const c = p.querySelector(".cap") || p.querySelector("b"); return c ? c.textContent : "사진"; }
-  function select(p) {
-    if (sel) sel.classList.remove("selected");
-    sel = p; p.classList.add("selected");
-    hint.textContent = "고른 사진: " + label(p) + " · 끌어서 위치를 옮기거나 아래 버튼으로 바꿔보세요.";
-    readState(p).then(s => { zoomIn.value = s.z; });
-  }
-  function setEditing(on) {
-    editing = on;
-    document.body.classList.toggle("editing", on);
-    bar.hidden = !on;
-    if (!on && sel) { sel.classList.remove("selected"); sel = null; }
-    if (on) document.querySelector(".photos").scrollIntoView({ behavior: "smooth", block: "center" });
-  }
-
-  photos.forEach(p => {
-    p.addEventListener("pointerdown", e => {
-      if (!editing || e.target.isContentEditable) return;
-      if (p !== sel) { select(p); return; }
-      const s = state.get(p);
-      if (!s) return;
-      drag = { p, s, x0: e.clientX, y0: e.clientY, sx: s.x, sy: s.y, ...bgSize(p, s) };
-      p.setPointerCapture(e.pointerId);
-    });
-    p.addEventListener("pointermove", e => {
-      if (!drag || drag.p !== p) return;
-      const d = drag, clamp = v => Math.min(100, Math.max(0, v));
-      if (d.bw - d.cw > 1) d.s.x = clamp(d.sx - (e.clientX - d.x0) / (d.bw - d.cw) * 100);
-      if (d.bh - d.ch > 1) d.s.y = clamp(d.sy - (e.clientY - d.y0) / (d.bh - d.ch) * 100);
-      apply(p, d.s);
-    });
-    const end = () => { drag = null; };
-    p.addEventListener("pointerup", end);
-    p.addEventListener("pointercancel", end);
-  });
-
-  zoomIn.addEventListener("input", () => {
-    if (!sel) { toast("먼저 사진을 골라주세요"); return; }
-    const s = state.get(sel); if (!s) return;
-    s.z = parseFloat(zoomIn.value); apply(sel, s);
-  });
-
-  fileIn.addEventListener("change", () => {
-    const f = fileIn.files[0]; fileIn.value = "";
-    if (!f) return;
-    if (!sel) { toast("먼저 바꿀 사진 칸을 골라주세요"); return; }
-    const target = sel, reader = new FileReader();
-    reader.onload = () => {
-      const img = new Image();
-      img.onload = () => {
-        // 휴대폰에서도 가볍게 열리도록 긴 변 720px JPEG로 줄여서 넣음
-        const k = Math.min(1, 720 / Math.max(img.naturalWidth, img.naturalHeight));
-        const c = document.createElement("canvas");
-        c.width = Math.round(img.naturalWidth * k); c.height = Math.round(img.naturalHeight * k);
-        c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
-        target.style.backgroundImage = 'url("' + c.toDataURL("image/jpeg", 0.72) + '")';
-        if (!target.classList.contains("filled")) {
-          const name = label(target);
-          target.classList.add("filled");
-          target.innerHTML = '<span class="cap"></span>';
-          target.querySelector(".cap").textContent = name;
-        }
-        const s = { iw: c.width, ih: c.height, x: 50, y: 50, z: 1 };
-        state.set(target, s); zoomIn.value = 1; apply(target, s);
-        toast("사진을 바꿨어요 · 저장하기를 눌러야 파일에 남아요");
-      };
-      img.onerror = () => toast("이 사진은 열 수 없어요. 다른 사진을 골라주세요");
-      img.src = reader.result;
-    };
-    reader.readAsDataURL(f);
-  });
-
-  document.getElementById("cap-edit").addEventListener("click", () => {
-    if (!sel) { toast("먼저 사진을 골라주세요"); return; }
-    // prompt()가 막힌 환경(앱 미리보기 등)도 있어서 라벨을 그 자리에서 바로 고치게 함
-    let cap = sel.querySelector(".cap");
-    if (!cap) { cap = document.createElement("span"); cap.className = "cap"; sel.appendChild(cap); }
-    cap.hidden = false;
-    cap.contentEditable = "true";
-    cap.focus();
-    const range = document.createRange(); range.selectNodeContents(cap);
-    const s = getSelection(); s.removeAllRanges(); s.addRange(range);
-    hint.textContent = "라벨을 입력하고 Enter를 누르세요.";
-    let done = false;
-    const finish = () => {
-      if (done) return; done = true;
-      cap.removeAttribute("contenteditable");
-      cap.textContent = cap.textContent.trim();
-      cap.hidden = !cap.textContent;
-      cap.removeEventListener("keydown", onKey);
-      hint.textContent = "라벨을 바꿨어요 · 저장하기를 눌러야 파일에 남아요.";
-    };
-    const onKey = e => { if (e.key === "Enter") { e.preventDefault(); finish(); cap.blur(); } };
-    cap.addEventListener("keydown", onKey);
-    cap.addEventListener("blur", finish, { once: true });
-  });
-
-  document.getElementById("edit-toggle").addEventListener("click", () => setEditing(!editing));
-  document.getElementById("edit-done").addEventListener("click", () => setEditing(false));
-
-  document.getElementById("edit-save").addEventListener("click", () => {
-    const clone = document.documentElement.cloneNode(true);
-    clone.querySelector("body").classList.remove("editing");
-    clone.querySelector("#editbar").hidden = true;
-    clone.querySelectorAll(".photo.selected").forEach(p => p.classList.remove("selected"));
-    const html = "<!doctype html>\n" + clone.outerHTML;
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(new Blob([html], { type: "text/html" }));
-    a.download = "서창카츠_시안.html";
-    document.body.appendChild(a); a.click(); a.remove();
-    setTimeout(() => URL.revokeObjectURL(a.href), 5000);
-    toast("저장했어요 · 다운로드 폴더를 확인하세요");
-  });
-})();
-</script>
-
-
 </body></html>
