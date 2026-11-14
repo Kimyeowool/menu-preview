@@ -123,7 +123,10 @@ section.block h2 { font-size: 30px; margin-bottom: 20px; }
 .small { font-size: 13px; color: var(--muted); margin: 0; }
 .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
 
-footer { color: var(--muted); font-size: 12.5px; }
+.map-btns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
+.map-btn { gap: 6px; padding-inline: 8px; white-space: nowrap; font-size: 13.5px; }
+.map-btn i { flex: none; width: 18px; height: 18px; border-radius: 5px; display: inline-grid; place-items: center; font-style: normal; font-size: 11px; font-weight: 700; color: #FFFFFF; }
+.copy-btn { width: 100%; margin-top: 8px; }footer { color: var(--muted); font-size: 12.5px; }
 footer .wrap { padding-block: 40px 24px; display: flex; flex-direction: column; gap: 4px; }
 .actionbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; background: var(--surface); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom, 0px); }
 .actionbar .wrap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding-block: 10px; }
@@ -346,7 +349,12 @@ body.editing .photo.selected { outline: 3px solid var(--crumb); cursor: move; }
         <p style="margin:0 0 6px">경남 양산시 삼호로 202 1층</p>
         <p class="small">조방낙지 건물에서 영산대 방향으로 약 20m</p>
         <p class="small" style="margin-top:10px">전화 <b style="color:var(--ink)">0507-1386-8267</b></p>
-        <div class="btn-row"><a class="btn primary" href="https://map.naver.com/p/search/%EC%84%9C%EC%B0%BD%EC%B9%B4%EC%B8%A0" target="_blank" rel="noopener">네이버 지도</a><button class="btn" type="button" id="copy-addr">주소 복사</button></div>
+        <div class="map-btns">
+          <a class="btn map-btn" href="https://map.naver.com/p/search/%EC%84%9C%EC%B0%BD%EC%B9%B4%EC%B8%A0" target="_blank" rel="noopener"><i style="background:#03C75A">N</i>네이버 지도</a>
+          <a class="btn map-btn" href="https://map.kakao.com/?q=%EA%B2%BD%EB%82%A8%20%EC%96%91%EC%82%B0%EC%8B%9C%20%EC%82%BC%ED%98%B8%EB%A1%9C%20202" target="_blank" rel="noopener"><i style="background:#FEE500;color:#191919">K</i>카카오맵</a>
+          <a class="btn map-btn" href="https://www.google.com/maps/search/?api=1&amp;query=%EC%84%9C%EC%B0%BD%EC%B9%B4%EC%B8%A0%20%EA%B2%BD%EB%82%A8%20%EC%96%91%EC%82%B0%EC%8B%9C%20%EC%82%BC%ED%98%B8%EB%A1%9C%20202" target="_blank" rel="noopener"><i style="background:#4285F4">G</i>구글 지도</a>
+        </div>
+        <button class="btn copy-btn" type="button" id="copy-addr">주소 복사</button>
       </div>
     </div>
   </div>
