@@ -200,6 +200,16 @@ body.editing .photo.selected { outline: 3px solid var(--crumb); cursor: move; }
   .hero .btn.primary { background: var(--ink); color: var(--bg); border-color: var(--ink); }
   .stat b, .park-points b { color: var(--ink); }
 }
+/* 첫 화면 문구: 위에서 아래로 차례대로 페이드 인 */
+@keyframes dropIn { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: none; } }
+.hero .since, .hero h1, .hero h1 em, .hero .wrap > div > p, .hero .deal { animation: dropIn 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.hero h1 em { display: inline-block; }
+.hero .since { animation-delay: 0.15s; }
+.hero h1 { animation-delay: 0.4s; }
+.hero h1 em { animation-delay: 0.75s; }
+.hero .wrap > div > p { animation-delay: 1.05s; }
+.hero .deal { animation-delay: 1.4s; }
+@media (prefers-reduced-motion: reduce) { .hero .since, .hero h1, .hero h1 em, .hero .wrap > div > p, .hero .deal { animation: none; } }
 </style>
 </head>
 <body class="">
