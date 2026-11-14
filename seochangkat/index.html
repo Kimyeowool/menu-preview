@@ -182,12 +182,13 @@ body.editing .photo.selected { outline: 3px solid var(--crumb); cursor: move; }
 }
 /* 첫 화면 문구: 위에서 아래로 차례대로 페이드 인 */
 @keyframes dropIn { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: none; } }
-.hero h1, .hero h1 em, .hero .wrap > div > p { animation: dropIn 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.hero h1, .hero h1 em, .hero .wrap > div > p, .hero .cta { animation: dropIn 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
 .hero h1 em { display: inline-block; }
 .hero h1 { animation-delay: 0.2s; }
 .hero h1 em { animation-delay: 0.55s; }
 .hero .wrap > div > p { animation-delay: 0.9s; }
-@media (prefers-reduced-motion: reduce) { .hero h1, .hero h1 em, .hero .wrap > div > p { animation: none; } }
+.hero .cta { animation-delay: 1.25s; }
+@media (prefers-reduced-motion: reduce) { .hero h1, .hero h1 em, .hero .wrap > div > p, .hero .cta { animation: none; } }
 </style>
 </head>
 <body class="">
