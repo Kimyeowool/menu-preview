@@ -130,6 +130,10 @@ section.block h2 { font-size: 30px; margin-bottom: 20px; }
 .stat b { font-family: var(--font-display); font-weight: 400; font-size: 30px; line-height: 1; font-variant-numeric: tabular-nums; }
 .stat b i { font-style: normal; color: #E8553B; font-size: 22px; margin-right: 4px; }
 .stat span { display: block; font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+.stat .rate { flex-basis: 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; border-color: #2AC1BC; background: linear-gradient(90deg, rgba(42, 193, 188, 0.1), transparent 70%), var(--surface); }
+.stat .rate span { margin-top: 0; font-size: 13.5px; }
+.stat .rate strong { color: #1A9F9A; font-weight: 700; }
+.stat .rate .stars { color: #F5B11B; letter-spacing: 2px; font-size: 16px; }
 .data { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .data .card ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
 .data .card li { display: flex; gap: 10px; align-items: baseline; font-size: 15px; }
@@ -280,6 +284,7 @@ footer .wrap { padding-block: 40px 24px; display: flex; align-items: center; gap
     <div class="eyebrow">REVIEWS</div>
     <h2>손님들이 증명한 마라탕</h2>
     <div class="stat">
+      <div class="rate"><b><i>★</i>5.0</b><span class="stars" aria-hidden="true">★★★★★</span><span><strong>배달의민족 평점</strong> · 리뷰 1,575개</span></div>
       <div><b><i>★</i>4.92</b><span>네이버 평점</span></div>
       <div><b>693</b><span>네이버 리뷰</span></div>
       <div><b>1만원대</b><span>1회 평균 결제 금액</span></div>
