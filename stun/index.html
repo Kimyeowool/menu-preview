@@ -117,6 +117,9 @@ section.block h2 { font-size: clamp(25px, 5vw, 32px); margin-top: 2px; }
 .coupon input { width: 18px; height: 18px; accent-color: var(--olive); }
 .note { font-size: 12.5px; color: var(--muted); margin: 10px 0 0; }
 
+.not-order { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 18px; padding: 6px 12px; border-radius: 10px; background: var(--yolk-soft); color: #7A4E0E; font-size: 13px; font-weight: 500; }
+.not-order::before { content: "i"; flex: none; width: 16px; height: 16px; border-radius: 50%; background: var(--yolk-deep); color: #fff; font-size: 11px; font-weight: 700; display: grid; place-items: center; font-style: italic; font-family: Georgia, serif; }
+
 /* 전체 메뉴 */
 .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
 .tabs button { font: inherit; font-size: 14px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); padding: 7px 16px; border-radius: 999px; cursor: pointer; }
@@ -247,7 +250,8 @@ footer .logo b { font-size: 22px; color: var(--ink); }
   <div class="wrap">
     <div class="eyebrow reveal">Make your set</div>
     <h2 class="reveal">브런치 세트 만들어 보기</h2>
-    <p class="sub reveal">메인 하나, 음료 하나, 사이드는 원하면. 고르는 대로 합계가 바로 나와요.</p>
+    <p class="sub reveal" style="margin-bottom:10px">메인 하나, 음료 하나, 사이드는 원하면. 고르는 대로 합계가 바로 나와요.</p>
+    <p class="not-order reveal">이 화면은 주문 페이지가 아니에요. 미리 음식 조합을 계산해 보는 화면이에요.</p>
     <div class="builder reveal">
       <div class="step"><div class="step-t"><span class="n">1</span>메인 고르기</div><div class="picks" id="pick-main" role="group" aria-label="메인 메뉴"></div></div>
       <div class="step"><div class="step-t"><span class="n">2</span>음료 고르기</div><div class="picks" id="pick-drink" role="group" aria-label="음료"></div></div>
