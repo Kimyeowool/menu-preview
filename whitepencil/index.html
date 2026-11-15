@@ -197,6 +197,14 @@ footer b { color: var(--ink); }
 @keyframes pop { from { opacity: .3; } to { opacity: 1; } }
 @media (min-width: 720px) { .zphoto { aspect-ratio: 21 / 9; } }
 .logo-img { width: 44px; height: 44px; border-radius: 50%; display: block; flex: none; }
+/* 연필로 그린 로고 배경 */
+.hero { position: relative; overflow: hidden; }
+.hero .sketch { position: absolute; z-index: 0; width: 300px; height: 300px; right: -70px; top: 14px; opacity: .26; transform: rotate(-6deg); pointer-events: none; }
+.hero .wrap { z-index: 1; }
+@media (min-width: 640px) { .hero .sketch { width: 380px; height: 380px; right: -40px; top: 10px; opacity: .3; } }
+@media (min-width: 860px) { .hero .sketch { width: 400px; height: 400px; right: calc(50% - 430px); top: 18px; opacity: .34; } .hero .sticky { align-self: end; margin-top: 230px; max-width: 300px; justify-self: start; margin-left: 10px; } }
+@media (prefers-reduced-motion: no-preference) { .hero .sketch { animation: sketchIn 1.2s .2s ease both; } }
+@keyframes sketchIn { from { opacity: 0; } }
 </style>
 </head>
 <body>
@@ -212,6 +220,44 @@ footer b { color: var(--ink); }
 </header>
 
 <section class="hero">
+  <svg class="sketch" viewBox="0 0 400 400" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="pencil" x="-5%" y="-5%" width="110%" height="110%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="7" result="wob"/>
+        <feDisplacementMap in="SourceGraphic" in2="wob" scale="3.2" result="d"/>
+        <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="1" seed="3" result="grain"/>
+        <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.6 1.25" result="mask"/>
+        <feComposite in="d" in2="mask" operator="in"/>
+      </filter>
+      <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)">
+        <line x1="0" y1="0" x2="0" y2="6" stroke="#3A3D42" stroke-width="1.2"/>
+      </pattern>
+    </defs>
+    <g filter="url(#pencil)" fill="none" stroke="#3A3D42" stroke-linecap="round" stroke-linejoin="round">
+      <!-- 바깥 원 두 겹, 손으로 여러 번 그은 느낌 -->
+      <circle cx="200" cy="200" r="186" stroke-width="2.2"/>
+      <circle cx="201" cy="199" r="184" stroke-width="1" opacity=".6"/>
+      <circle cx="200" cy="200" r="172" stroke-width="2.4"/>
+      <circle cx="199" cy="201" r="170" stroke-width="1" opacity=".5"/>
+      <!-- 연필 -->
+      <g transform="translate(150 70) rotate(45)">
+        <rect x="0" y="0" width="22" height="118" rx="2" stroke-width="2.2"/>
+        <rect x="0" y="0" width="22" height="118" rx="2" fill="url(#hatch)" stroke="none" opacity=".55"/>
+        <line x1="0" y1="16" x2="22" y2="16" stroke-width="2"/>
+        <line x1="0" y1="20" x2="22" y2="20" stroke-width="1.2"/>
+        <path d="M0 118 L11 146 L22 118" stroke-width="2.2"/>
+        <path d="M7 136 L11 146 L15 136 Z" fill="#3A3D42" stroke-width="1.4"/>
+      </g>
+      <!-- 가로줄 -->
+      <path d="M62 214 C130 212, 270 216, 338 213" stroke-width="2.2"/>
+      <path d="M64 292 C140 294, 260 290, 336 292" stroke-width="2.2"/>
+    </g>
+    <g filter="url(#pencil)" fill="#3A3D42" text-anchor="middle" font-family="Gaegu, 'Gowun Dodum', cursive" font-weight="700">
+      <text x="200" y="258" font-size="44" letter-spacing="3">WHITE PENCIL</text>
+      <text x="200" y="282" font-size="14" letter-spacing="5">THE PREMIUM STUDY CAFE</text>
+      <text x="200" y="338" font-size="26" letter-spacing="4">양산평산점</text>
+    </g>
+  </svg>
   <div class="wrap">
     <div>
       <div class="kicker">평산동 · 24시간 연중무휴</div>
