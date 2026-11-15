@@ -131,6 +131,16 @@ section.block.alt { background: var(--paper); border-top: 1px solid var(--line);
 .work li::before { content: ""; position: absolute; left: 0; top: .7em; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); }
 .work .go { display: inline-block; margin-top: 12px; font-size: 14px; font-weight: 700; color: var(--accent); }
 .work:hover .go { text-decoration: underline; }
+.kind { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-right: 6px; vertical-align: 1px; }
+.kind.sample { background: var(--bg); color: var(--ink-2); border: 1px dashed color-mix(in srgb, var(--ink-2) 50%, transparent); }
+.kind.done { background: #DFF3E7; color: #1E7A4C; }
+.works-done:empty { display: none; }
+.done-empty { display: grid; gap: 6px; background: var(--paper); border: 1.5px dashed var(--line); border-radius: 24px; padding: 26px 24px; }
+.done-empty b { font-size: 18px; font-weight: 900; }
+.done-empty p { color: var(--ink-2); font-size: 15px; }
+.done-empty a { justify-self: start; margin-top: 8px; font-size: 14px; font-weight: 700; color: var(--accent); text-decoration: none; }
+.done-empty a:hover { text-decoration: underline; }
+#done { padding-bottom: 0; }
 
 /* process */
 .steps { display: grid; gap: 0; counter-reset: step; }
@@ -235,7 +245,8 @@ footer { padding: 0 0 40px; font-size: 13px; color: var(--ink-2); text-align: ce
   <div class="wrap">
     <a class="brand" href="#"><span class="mark">우<i>.</i></span>우리가게 한 페이지</a>
     <nav class="links" aria-label="페이지 내 이동">
-      <a href="#works">작업 사례</a>
+      <a href="#done">작업한 곳</a>
+      <a href="#works">시안 예시</a>
       <a href="#features">담기는 것</a>
       <a href="#process">진행 과정</a>
       <a href="#price">가격</a>
@@ -252,11 +263,11 @@ footer { padding: 0 0 40px; font-size: 13px; color: var(--ink-2); text-align: ce
         <h1>손님이 찾는 건<br><em>메뉴, 영업시간, 길</em><br>딱 세 가지예요</h1>
         <p class="lead">메뉴와 가격, 지금 문을 열었는지, 어떻게 찾아오는지를 휴대폰 한 화면에 담아 가게 전용 페이지로 만들어 드려요. 사장님은 사진만 보내주시면 돼요.</p>
         <div class="cta">
-          <a class="btn accent" href="#works">작업 사례 보기</a>
+          <a class="btn accent" href="#works">시안 예시 보기</a>
           <a class="btn ghost" href="#contact">전화 · 문자 문의</a>
         </div>
         <div class="proof">
-          <span><b>6곳</b>제작한 가게</span>
+          <span><b>6곳</b>미리 만들어 본 시안</span>
           <span><b>1주일</b>시안부터 오픈까지</span>
           <span><b>링크 1개</b>플레이스·인스타·QR 연결</span>
         </div>
@@ -296,90 +307,107 @@ footer { padding: 0 0 40px; font-size: 13px; color: var(--ink-2); text-align: ce
     </div>
   </section>
 
+  <section class="block" id="done">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kicker">Done</span>
+        <h2>작업한 곳</h2>
+        <p>계약하고 실제로 문을 연 가게 페이지만 여기에 올려요.</p>
+      </div>
+      <!-- 거래 완료된 가게는 아래 .works-done 안에 <a class="work reveal"> 카드로 추가하고, 태그 앞에 <span class="kind done">작업 완료</span>를 붙인다. 카드가 생기면 .done-empty는 지운다. -->
+      <div class="works works-done"></div>
+      <div class="done-empty reveal">
+        <b>첫 번째 가게를 기다리고 있어요</b>
+        <p>아직 계약을 마친 가게는 없어요. 첫 고객 사장님께는 특가로 만들어 드리고, 완성된 페이지가 이 자리에 첫 작업으로 올라가요.</p>
+        <a href="#price">첫 고객 특가 보기 →</a>
+      </div>
+    </div>
+  </section>
+
   <section class="block" id="works">
     <div class="wrap">
       <div class="sec-head reveal">
-        <span class="kicker">Works</span>
-        <h2>이렇게 만들어 드렸어요</h2>
-        <p>가게마다 색도, 첫 화면의 이야기도 달라요. 직접 눌러서 휴대폰으로 확인해 보세요.</p>
+        <span class="kicker">Samples</span>
+        <h2>가게별로 미리 만든 시안이에요</h2>
+        <p>실제 가게 정보로 만들어 본 제작 시안이에요. 계약한 페이지는 아니고, 이런 느낌으로 만들어 드린다는 예시예요. 직접 눌러서 휴대폰으로 확인해 보세요.</p>
       </div>
       <div class="works">
         <a class="work reveal" href="https://kimyeowool.github.io/menu-preview/seochangkat/" target="_blank" rel="noopener">
           <div class="phone"><div class="screen s-katsu" role="img" aria-label="서창카츠 페이지 첫 화면"></div></div>
           <div>
-            <span class="tag">돈카츠 전문점 · 양산</span>
+            <span class="tag"><span class="kind sample">시안</span>돈카츠 전문점 · 양산</span>
             <h3>서창카츠</h3>
             <ul>
               <li>‘냉동 없이 직접 손질’을 첫 문장으로</li>
               <li>정기 휴무 변경·한정 메뉴 공지 띠</li>
               <li>네이버·카카오·구글 길찾기 버튼</li>
             </ul>
-            <span class="go">페이지 보기 →</span>
+            <span class="go">시안 보기 →</span>
           </div>
         </a>
         <a class="work reveal" href="https://kimyeowool.github.io/menu-preview/subaksa/" target="_blank" rel="noopener">
           <div class="phone"><div class="screen s-milmyeon" role="img" aria-label="서박사밀면 페이지 첫 화면"></div></div>
           <div>
-            <span class="tag">밀면 전문점 · 양산 평산동</span>
+            <span class="tag"><span class="kind sample">시안</span>밀면 전문점 · 양산 평산동</span>
             <h3>소문난서박사밀면</h3>
             <ul>
               <li>가게 외관색을 살린 베이지·차콜 톤</li>
               <li>‘밀면 2그릇 + 만두 18,000원’ 대표 배너</li>
               <li>매달 첫째·셋째 월요일 휴무 자동 표시</li>
             </ul>
-            <span class="go">페이지 보기 →</span>
+            <span class="go">시안 보기 →</span>
           </div>
         </a>
         <a class="work reveal" href="https://kimyeowool.github.io/menu-preview/DDDR/" target="_blank" rel="noopener">
           <div class="phone"><div class="screen s-cafe" role="img" aria-label="DDD알 캔앤보틀커피 페이지 첫 화면"></div></div>
           <div>
-            <span class="tag">캔커피 · 디저트 · 양산 평산동</span>
+            <span class="tag"><span class="kind sample">시안</span>캔커피 · 디저트 · 양산 평산동</span>
             <h3>DDD알 캔앤보틀커피</h3>
             <ul>
               <li>새벽 2시까지, 자정 넘는 영업시간 계산</li>
               <li>배달의민족 평점 4.9 카드</li>
               <li>패스오더 100원 이벤트 강조</li>
             </ul>
-            <span class="go">페이지 보기 →</span>
+            <span class="go">시안 보기 →</span>
           </div>
         </a>
         <a class="work reveal" href="https://kimyeowool.github.io/menu-preview/woongchon/" target="_blank" rel="noopener">
           <div class="phone"><div class="screen s-gukbap" role="img" aria-label="더웅촌 페이지 첫 화면"></div></div>
           <div>
-            <span class="tag">국밥 · 수육 · 양산 평산동</span>
+            <span class="tag"><span class="kind sample">시안</span>국밥 · 수육 · 양산 평산동</span>
             <h3>더웅촌</h3>
             <ul>
               <li>‘매일 삶고, 매일 끓입니다’ 첫 화면</li>
               <li>브레이크타임까지 계산하는 영업 상태</li>
               <li>편육 쿠폰 · 수육 소진 시간 안내 띠</li>
             </ul>
-            <span class="go">페이지 보기 →</span>
+            <span class="go">시안 보기 →</span>
           </div>
         </a>
         <a class="work reveal" href="https://kimyeowool.github.io/menu-preview/maralove/" target="_blank" rel="noopener">
           <div class="phone"><div class="screen s-mala" role="img" aria-label="마라는사랑입니다 페이지 첫 화면"></div></div>
           <div>
-            <span class="tag">마라탕 · 마라샹궈 · 양산 평산동</span>
+            <span class="tag"><span class="kind sample">시안</span>마라탕 · 마라샹궈 · 양산 평산동</span>
             <h3>마라는사랑입니다</h3>
             <ul>
               <li>간판 색을 살린 분홍 · 고추빨강 톤</li>
               <li>리뷰 키워드 · 요일별 붐비는 시간 그래프</li>
               <li>매주 목요일 휴무 자동 표시</li>
             </ul>
-            <span class="go">페이지 보기 →</span>
+            <span class="go">시안 보기 →</span>
           </div>
         </a>
         <a class="work reveal" href="https://kimyeowool.github.io/menu-preview/dalrae/" target="_blank" rel="noopener">
           <div class="phone"><div class="screen s-dalrae" role="img" aria-label="달래식당 평산점 페이지 첫 화면"></div></div>
           <div>
-            <span class="tag">직화 제육 · 전 · 양산 평산동</span>
+            <span class="tag"><span class="kind sample">시안</span>직화 제육 · 전 · 양산 평산동</span>
             <h3>달래식당 평산점</h3>
             <ul>
               <li>로고 선을 본뜬 흑·베이지·나무색 톤</li>
               <li>매장 야경 사진이 깔린 첫 화면</li>
               <li>주말 휴무엔 ‘월요일 10:30 오픈’ 표시</li>
             </ul>
-            <span class="go">페이지 보기 →</span>
+            <span class="go">시안 보기 →</span>
           </div>
         </a>
       </div>
