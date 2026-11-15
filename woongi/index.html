@@ -7,7 +7,7 @@
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23161616'/%3E%3Cpath d='M10 18h9l4 18 5-18h8l5 18 4-18h9l-9 30h-8l-5-17-5 17h-8z' fill='%23FFC61A'/%3E%3C/svg%3E">
 <meta name="description" content="양산 평산북2길 28, 천성산온천 건물 2층. 웅상 최대 600평 헬스장, 주차 300대, 365일 운영, 온천수 샤워, 체형교정·다이어트 PT.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Ops+One&amp;family=Black+Han+Sans&amp;family=Noto+Sans+KR:wght@400;500;700;900&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Black+Ops+One&amp;family=Black+Han+Sans&amp;family=Noto+Sans+KR:wght@400;500;700;900&amp;display=swap">
 <style>
 /* 웅이피트니스 — 창고 느낌: 검정·회색 콘크리트, 노란·흰 글자 */
 :root {
@@ -54,7 +54,10 @@ nav.links a:hover { color: var(--ink); }
   #121212; }
 
 .hero .wrap { position: relative; padding-block: 46px 50px; }
-.hero .wall { position: absolute; right: -10px; top: 18px; font-family: var(--font-st); font-size: clamp(64px, 17vw, 150px); line-height: .9; color: rgba(255, 198, 26, .09); text-align: right; pointer-events: none; user-select: none; }
+.hero .wall { position: absolute; right: -4px; top: 16px; font-family: "Anton", "Impact", sans-serif; font-size: clamp(50px, 12.5vw, 104px); line-height: .98; text-align: right; letter-spacing: .01em; pointer-events: none; user-select: none; text-shadow: 0 0 1px rgba(0,0,0,.4); }
+.hero .wall span { display: block; }
+.hero .wall .y { color: rgba(255, 198, 26, .17); }
+.hero .wall .w { color: rgba(255, 255, 255, .11); }
 .tagline { display: inline-block; font-size: 12.5px; font-weight: 700; color: var(--yellow-ink); background: var(--yellow); padding: 3px 10px; letter-spacing: .04em; transform: rotate(-1.5deg); }
 .hero h1 { font-size: clamp(38px, 9.4vw, 64px); line-height: 1.12; margin-top: 16px; }
 .hero h1 em { font-style: normal; color: var(--yellow); }
@@ -217,7 +220,7 @@ footer a { color: var(--ink); }
 </header>
 
 <section class="hero">
-  <div class="wall" aria-hidden="true">FOR<br>ME.</div>
+  <div class="wall" aria-hidden="true"><span class="y">HERE,</span><span class="w">I&#96;m Standing</span><span class="y">FOR ME.</span></div>
   <div class="wrap">
     <span class="tagline">양산 웅상 최대 규모 600평</span>
     <h1>운동,<br>아무 데서나<br><em>하지 마세요.</em></h1>
