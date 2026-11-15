@@ -48,10 +48,11 @@ nav.links a:hover { color: var(--ink); }
 
 /* hero: 벽돌 벽 + 스텐실 글자 */
 .hero { position: relative; overflow: hidden; background:
-  linear-gradient(180deg, rgba(18,18,18,.2), rgba(18,18,18,.95) 92%),
-  repeating-linear-gradient(0deg, transparent 0 26px, rgba(255,255,255,.035) 26px 28px),
-  repeating-linear-gradient(90deg, transparent 0 58px, rgba(255,255,255,.03) 58px 60px),
-  #1A1B1D; }
+  radial-gradient(120% 90% at 20% 30%, rgba(18,18,18,.15), rgba(18,18,18,.55) 70%),
+  linear-gradient(180deg, rgba(18,18,18,0) 40%, rgba(18,18,18,.92) 96%),
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='56'%3E%3Crect width='120' height='56' fill='%23121212'/%3E%3Cg%3E%3Crect x='1' y='1' width='57' height='25' rx='1.5' fill='%2327282B'/%3E%3Crect x='61' y='1' width='57' height='25' rx='1.5' fill='%23222326'/%3E%3Crect x='-29' y='29' width='57' height='25' rx='1.5' fill='%23242528'/%3E%3Crect x='31' y='29' width='57' height='25' rx='1.5' fill='%232A2B2E'/%3E%3Crect x='91' y='29' width='57' height='25' rx='1.5' fill='%23242528'/%3E%3C/g%3E%3Cg fill='%23FFFFFF' opacity='.035'%3E%3Crect x='1' y='1' width='57' height='2'/%3E%3Crect x='61' y='1' width='57' height='2'/%3E%3Crect x='0' y='29' width='28' height='2'/%3E%3Crect x='31' y='29' width='57' height='2'/%3E%3Crect x='91' y='29' width='29' height='2'/%3E%3C/g%3E%3C/svg%3E") 0 0 / 120px 56px,
+  #121212; }
+
 .hero .wrap { position: relative; padding-block: 46px 50px; }
 .hero .wall { position: absolute; right: -10px; top: 18px; font-family: var(--font-st); font-size: clamp(64px, 17vw, 150px); line-height: .9; color: rgba(255, 198, 26, .09); text-align: right; pointer-events: none; user-select: none; }
 .tagline { display: inline-block; font-size: 12.5px; font-weight: 700; color: var(--yellow-ink); background: var(--yellow); padding: 3px 10px; letter-spacing: .04em; transform: rotate(-1.5deg); }
