@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>비바피트니스 헬스&amp;PT 평산덕계점 · 양산 평산 헬스장</title>
+<meta name="description" content="양산 평산7길 8, 2층. 200평 넘는 헬스장, 40종 이상 기구, 06시~24시 연중무휴, 무료 주차. 1:1 PT와 재활·체형 교정.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Black+Han+Sans&amp;family=Noto+Sans+KR:wght@400;500;700;900&amp;display=swap">
+<style>
+/* 헬스장 원페이지 — 검정 바탕, 형광 연두(볼트), 주황 포인트 */
+:root {
+  --bg: #0E0F11; --bg-2: #141619; --surface: #1A1D21; --surface-2: #20242A; --line: #2B3038;
+  --ink: #F2F3F5; --muted: #9AA0AA; --volt: #D4FF3A; --volt-ink: #0E0F11; --hot: #FF5A36;
+  --font-en: "Anton", "Impact", sans-serif;
+  --font-kr: "Black Han Sans", "Noto Sans KR", sans-serif;
+  --font-body: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.7; margin: 0; padding-bottom: 88px; word-break: keep-all; }
+.wrap { max-width: 880px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { margin: 0; font-family: var(--font-kr); font-weight: 400; letter-spacing: -0.01em; text-wrap: balance; }
+a { color: inherit; }
+.en { font-family: var(--font-en); letter-spacing: .02em; }
+.num { font-variant-numeric: tabular-nums; }
+:focus-visible { outline: 2px solid var(--volt); outline-offset: 2px; border-radius: 6px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+.draft-tag { background: #1F2329; color: var(--muted); font-size: 12.5px; text-align: center; padding: 6px 12px; }
+header.top { position: sticky; top: 0; z-index: 5; background: rgba(14, 15, 17, .92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+header.top .wrap { display: flex; align-items: center; gap: 14px; padding-block: 10px; }
+.logo { display: flex; align-items: baseline; gap: 8px; margin-right: auto; white-space: nowrap; text-decoration: none; }
+.logo b { font-family: var(--font-en); font-weight: 400; font-size: 24px; letter-spacing: .04em; }
+.logo b i { font-style: normal; color: var(--volt); }
+.logo small { font-size: 12px; color: var(--muted); }
+nav.links { display: flex; gap: 16px; font-size: 14px; }
+nav.links a { text-decoration: none; color: var(--muted); }
+nav.links a:hover { color: var(--ink); }
+.status { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: rgba(212, 255, 58, .14); color: var(--volt); white-space: nowrap; }
+.status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.status.closed { background: rgba(255, 255, 255, .08); color: var(--muted); }
+.status.soon { background: rgba(255, 90, 54, .16); color: #FF8A6E; }
+
+.event { background: var(--hot); color: #fff; font-size: 13.5px; font-weight: 700; }
+.event .wrap { display: flex; flex-wrap: wrap; gap: 4px 12px; justify-content: center; align-items: center; padding-block: 8px; }
+.event .d { font-family: var(--font-en); font-weight: 400; font-size: 16px; background: #fff; color: var(--hot); border-radius: 6px; padding: 0 8px; letter-spacing: .04em; }
+
+/* hero */
+.hero { position: relative; overflow: hidden; background: radial-gradient(90% 70% at 85% 10%, rgba(212, 255, 58, .10), transparent 60%), var(--bg); }
+.hero .bigword { position: absolute; right: -2%; top: 8%; font-family: var(--font-en); font-size: clamp(120px, 34vw, 300px); line-height: .85; color: transparent; -webkit-text-stroke: 1.5px rgba(212, 255, 58, .18); letter-spacing: .02em; pointer-events: none; user-select: none; }
+.hero .stripes { position: absolute; left: 0; right: 0; bottom: 0; height: 10px; background: repeating-linear-gradient(-45deg, var(--volt) 0 12px, transparent 12px 24px); opacity: .85; }
+.hero .wrap { position: relative; padding-block: 44px 60px; }
+.kicker { display: inline-flex; gap: 8px; align-items: center; font-size: 12.5px; font-weight: 700; color: var(--volt); letter-spacing: .08em; }
+.kicker::before { content: ""; width: 26px; height: 2px; background: var(--volt); }
+.hero h1 { font-size: clamp(40px, 10vw, 68px); line-height: 1.1; margin-top: 14px; }
+.hero h1 .strike { position: relative; color: var(--muted); }
+.hero h1 .strike::after { content: ""; position: absolute; left: -2%; right: -2%; top: 52%; height: 6px; background: var(--hot); transform: rotate(-3deg); }
+.hero h1 em { font-style: normal; color: var(--volt); }
+.hero p.lead { color: rgba(242, 243, 245, .78); margin: 16px 0 0; max-width: 34ch; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 24px; max-width: 560px; }
+.stats div { border: 1px solid var(--line); background: rgba(26, 29, 33, .7); border-radius: 12px; padding: 10px 12px; }
+.stats b { display: block; font-family: var(--font-en); font-weight: 400; font-size: 26px; line-height: 1.1; color: var(--volt); }
+.stats span { font-size: 12px; color: var(--muted); }
+.cta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 22px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; font: inherit; font-size: 14px; font-weight: 700; text-decoration: none; padding: 11px 18px; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+.btn.volt { background: var(--volt); border-color: var(--volt); color: var(--volt-ink); }
+.btn.ghost { background: transparent; }
+.hero .kicker, .hero h1, .hero .lead, .hero .stats, .hero .cta { animation: rise .7s cubic-bezier(.2,.7,.2,1) both; }
+.hero h1 { animation-delay: .1s; } .hero .lead { animation-delay: .25s; } .hero .stats { animation-delay: .4s; } .hero .cta { animation-delay: .55s; }
+.hero h1 .strike::after { animation: slash .5s .7s cubic-bezier(.2,.7,.2,1) both; transform-origin: left center; }
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@keyframes slash { from { transform: rotate(-3deg) scaleX(0); } to { transform: rotate(-3deg) scaleX(1); } }
+@media (prefers-reduced-motion: reduce) { .hero *, .hero h1 .strike::after { animation: none !important; } }
+
+section.block .wrap { padding-block: 60px 8px; }
+.eyebrow { font-family: var(--font-en); font-size: 15px; letter-spacing: .14em; color: var(--volt); }
+section.block h2 { font-size: clamp(27px, 5.6vw, 36px); margin-top: 4px; }
+.sub { color: var(--muted); margin: 8px 0 22px; }
+
+/* 첫 방문 혜택 */
+.perks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.perk { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px; overflow: hidden; }
+.perk .free { font-family: var(--font-en); font-size: 13px; letter-spacing: .1em; color: var(--volt-ink); background: var(--volt); padding: 1px 8px; border-radius: 4px; }
+.perk .free.coupon { background: var(--hot); color: #fff; }
+.perk b { display: block; font-size: 16px; margin-top: 10px; }
+.perk span { font-size: 13px; color: var(--muted); }
+
+/* 회원권 계산기 */
+.calc { background: linear-gradient(180deg, var(--surface-2), var(--surface)); border: 1px solid var(--line); border-radius: 20px; padding: 22px; }
+.calc label { display: flex; justify-content: space-between; align-items: baseline; font-weight: 700; margin-bottom: 8px; }
+.calc output { font-family: var(--font-en); font-size: 30px; color: var(--volt); line-height: 1; }
+.calc output small { font-family: var(--font-body); font-size: 14px; color: var(--ink); margin-left: 4px; }
+input[type=range] { display: block; width: 100%; margin: 0; accent-color: var(--volt); height: 28px; }
+.ticks { position: relative; height: 26px; --pad: 8px; }
+.ticks button { position: absolute; top: 4px; transform: translateX(-50%); white-space: nowrap; font: inherit; font-size: 12px; color: var(--muted); background: none; border: 0; padding: 2px; cursor: pointer; }
+.ticks button.on { color: var(--volt); font-weight: 700; }
+.plans { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; }
+.plan { position: relative; border: 1.5px solid var(--line); border-radius: 16px; padding: 16px 14px; background: rgba(14, 15, 17, .5); }
+.plan.best { border-color: var(--volt); background: rgba(212, 255, 58, .06); }
+.plan.best::before { content: "1회당 가장 저렴"; position: absolute; top: -11px; left: 12px; font-size: 11px; font-weight: 700; background: var(--volt); color: var(--volt-ink); padding: 1px 8px; border-radius: 4px; }
+.plan h3 { font-size: 20px; }
+.plan .price { font-family: var(--font-en); font-size: 26px; line-height: 1.2; margin-top: 4px; }
+.plan .price small { font-family: var(--font-body); font-size: 13px; color: var(--muted); }
+.plan .row { display: flex; justify-content: space-between; font-size: 13px; color: var(--muted); border-top: 1px dashed var(--line); margin-top: 8px; padding-top: 8px; }
+.plan .row b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.plan .per b { color: var(--volt); font-size: 15px; }
+.verdict { margin-top: 14px; padding: 12px 14px; border-radius: 12px; background: var(--bg-2); border: 1px solid var(--line); font-size: 14px; }
+.verdict b { color: var(--volt); }
+.pt { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 14px; }
+.pt div { border: 1px solid var(--line); border-radius: 14px; padding: 14px; background: var(--surface); }
+.pt b { display: block; font-size: 15px; }
+.pt .p { display: block; font-family: var(--font-en); font-size: 22px; color: var(--ink); margin-top: 2px; }
+.pt span { display: block; font-size: 12.5px; color: var(--muted); }
+.note { font-size: 12.5px; color: var(--muted); margin: 12px 0 0; }
+
+/* 왜 비바 */
+.why { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.why div { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px 16px; }
+.why .n { font-family: var(--font-en); font-size: 28px; color: var(--volt); line-height: 1; }
+.why b { display: block; font-size: 16.5px; margin-top: 8px; }
+.why p { margin: 6px 0 0; font-size: 13.5px; color: var(--muted); line-height: 1.6; }
+
+/* 트레이너 */
+.trainers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.trainer { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 18px; display: grid; gap: 12px; align-content: start; }
+.trainer .ph { width: 76px; height: 76px; border-radius: 50%; border: 2px dashed var(--line); display: grid; place-items: center; color: var(--muted); font-size: 11px; text-align: center; line-height: 1.3; }
+.trainer .role { font-size: 12.5px; font-weight: 700; color: var(--volt); letter-spacing: .04em; }
+.trainer q { display: block; font-family: var(--font-kr); font-size: 19px; line-height: 1.4; quotes: "“" "”"; }
+.creds { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+.creds span { font-size: 12.5px; font-weight: 700; padding: 4px 11px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); }
+
+/* 리뷰 */
+.rv-head { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+.rv-head div { border: 1px solid var(--line); background: var(--surface); border-radius: 14px; padding: 10px 16px; }
+.rv-head b { font-family: var(--font-en); font-size: 30px; line-height: 1; }
+.rv-head b i { font-style: normal; color: var(--volt); font-size: 22px; margin-right: 4px; }
+.rv-head span { display: block; font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+.bars { display: grid; gap: 6px; }
+.bar { position: relative; display: flex; justify-content: space-between; align-items: center; padding: 9px 14px; border-radius: 10px; background: var(--surface); overflow: hidden; font-size: 14px; }
+.bar::before { content: ""; position: absolute; inset: 0 auto 0 0; width: var(--w); background: rgba(212, 255, 58, .14); border-right: 2px solid rgba(212, 255, 58, .5); transition: width 1s cubic-bezier(.2,.7,.2,1); }
+.bar span, .bar b { position: relative; }
+.bar b { font-variant-numeric: tabular-nums; color: var(--volt); }
+.bar.hl { outline: 1px solid var(--hot); }
+.bar.hl b { color: #FF8A6E; }
+
+/* 예약 */
+.book { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.bk { display: grid; gap: 4px; text-decoration: none; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 16px; transition: border-color .2s; }
+.bk:hover { border-color: var(--volt); }
+.bk b { font-size: 16px; }
+.bk span { font-size: 13px; color: var(--muted); }
+.bk small { font-size: 12.5px; color: var(--muted); }
+.bk small i { font-style: normal; color: #FFC94A; }
+.bk .go { font-size: 13px; font-weight: 700; color: var(--volt); margin-top: 4px; }
+
+/* 사진 자리 */
+.photos { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px; }
+.photo { aspect-ratio: 1; min-width: 0; border-radius: 16px; border: 2px dashed var(--line); background: var(--surface); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--muted); font-size: 12.5px; text-align: center; padding: 10px; }
+.photo:first-child { aspect-ratio: auto; grid-row: span 2; }
+.photo b { color: var(--ink); font-size: 14px; }
+.photo svg { width: 26px; height: 26px; opacity: .55; margin-bottom: 2px; }
+
+/* 이용 · 위치 */
+.info { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; min-width: 0; }
+.card h3 { font-size: 21px; margin-bottom: 10px; }
+.big-hours { font-family: var(--font-en); font-size: 40px; line-height: 1; color: var(--volt); }
+.small { font-size: 13px; color: var(--muted); margin: 8px 0 0; }
+.addr { font-weight: 700; margin: 0; }
+.parking { display: grid; gap: 6px; margin-top: 12px; }
+.parking div { padding: 10px 12px; border-radius: 12px; background: var(--bg-2); border: 1px solid var(--line); font-size: 13px; }
+.parking b { color: var(--volt); margin-right: 6px; }
+.map-btns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 12px; }
+.map-btn { padding-inline: 8px; white-space: nowrap; font-size: 13.5px; font-weight: 500; }
+.map-btn i { flex: none; width: 18px; height: 18px; border-radius: 5px; display: inline-grid; place-items: center; font-style: normal; font-size: 11px; font-weight: 700; color: #FFFFFF; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+.row2 .btn { font-weight: 500; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.chips span { font-size: 12.5px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+
+footer { color: var(--muted); font-size: 12.5px; }
+footer .wrap { padding-block: 48px 24px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; border-top: 1px solid var(--line); margin-top: 48px; }
+footer .logo b { font-size: 22px; color: var(--ink); }
+footer a { color: var(--ink); }
+.actionbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; background: rgba(14, 15, 17, .95); backdrop-filter: blur(8px); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.actionbar .wrap { display: grid; grid-template-columns: 1fr 1fr 1.3fr; gap: 8px; padding-block: 10px; }
+.actionbar .btn { width: 100%; padding-inline: 8px; }
+.toast { position: fixed; left: 50%; bottom: calc(80px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--volt); color: var(--volt-ink); font-size: 13px; font-weight: 700; padding: 8px 14px; border-radius: 999px; z-index: 7; }
+[hidden] { display: none !important; }
+
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+
+@media (max-width: 720px) {
+  nav.links, .logo small { display: none; }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .perks, .why { grid-template-columns: 1fr 1fr; }
+  .plans { grid-template-columns: 1fr; gap: 16px; }
+  .pt { grid-template-columns: 1fr 1fr; }
+  .pt div:first-child { grid-column: 1 / -1; }
+  .trainers { grid-template-columns: 1fr; }
+  .trainer { grid-template-columns: 76px 1fr; align-items: center; }
+  .trainer .ph { grid-row: span 2; }
+  .book, .info { grid-template-columns: 1fr; }
+  .photos { grid-template-columns: 1fr 1fr; }
+  .photo:first-child { grid-column: 1 / -1; grid-row: auto; aspect-ratio: 4 / 3; }
+  .calc { padding: 18px 14px; }
+}
+</style>
+</head>
+<body>
+
+<div class="draft-tag">제작 시안 · 비바피트니스 평산덕계점 사장님께 보여드리기 위한 샘플이에요. 사진과 문구는 사장님 확인 후 바꿔 넣습니다.</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="#"><b>VIVA <i>FITNESS</i></b><small>헬스&amp;PT 평산덕계점</small></a>
+    <nav class="links"><a href="#perks">첫 방문 혜택</a><a href="#price">가격</a><a href="#trainers">트레이너</a><a href="#visit">오시는 길</a></nav>
+    <span class="status closed" id="status">06:00 오픈</span>
+  </div>
+</header>
+
+<div class="event" id="event"><div class="wrap"><span>🔥 첫 방문 최대 <u>10만원</u> 지원금 (헬스 &amp; PT)</span><span>11월 30일까지 <span class="d" id="dday">D-?</span></span></div></div>
+
+<section class="hero">
+  <div class="bigword" aria-hidden="true">VIVA</div>
+  <div class="wrap">
+    <div class="kicker">양산 평산 헬스 &amp; PT</div>
+    <h1><span class="strike">‘나중에’</span> 말고<br><em>지금</em> 시작해요</h1>
+    <p class="lead">평산7길 8, 2층. 처음이어도 부담 없이 시작하고, 꾸준히 이어갈 수 있게 도와드려요.</p>
+    <div class="stats">
+      <div><b class="num">200평+</b><span>넓은 운동 공간</span></div>
+      <div><b class="num">40종+</b><span>웨이트 · 유산소 기구</span></div>
+      <div><b class="num">06–24</b><span>매일 운영</span></div>
+      <div><b class="num">365일</b><span>연중무휴</span></div>
+    </div>
+    <div class="cta">
+      <a class="btn volt" href="#book">무료 PT 체험 예약</a>
+      <a class="btn ghost" href="#price">회원권 가격 보기</a>
+    </div>
+  </div>
+  <div class="stripes" aria-hidden="true"></div>
+</section>
+
+<section class="block" id="perks">
+  <div class="wrap">
+    <div class="eyebrow reveal">FIRST VISIT</div>
+    <h2 class="reveal">처음 오시면 이렇게 해드려요</h2>
+    <p class="sub reveal">등록 전에 먼저 해보고 결정하세요.</p>
+    <div class="perks reveal">
+      <div class="perk"><span class="free">FREE</span><b>체험 + 인바디 분석</b><span>방문 상담 때 무료로</span></div>
+      <div class="perk"><span class="free">FREE</span><b>1:1 무료 PT 체험</b><span>네이버 예약으로 신청</span></div>
+      <div class="perk"><span class="free coupon">COUPON</span><b>PT 1회 증정</b><span>네이버 알림받기 쿠폰</span></div>
+      <div class="perk"><span class="free coupon">COUPON</span><b>첫걸음 PT 할인</b><span>네이버 쿠폰 받기</span></div>
+      <div class="perk"><span class="free coupon">5,000원 할인</span><b>일일입장권</b><span>네이버 리뷰 쓰면 할인</span></div>
+      <div class="perk"><span class="free">FREE</span><b>주차 300평</b><span>건물 앞 · 뒤편 주차장</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="price">
+  <div class="wrap">
+    <div class="eyebrow reveal">MEMBERSHIP</div>
+    <h2 class="reveal">몇 번 오면 회원권이 이득일까?</h2>
+    <p class="sub reveal">일주일에 몇 번 운동할지 고르면, 기간별로 1회당 얼마인지 계산해 드려요.</p>
+    <div class="calc reveal">
+      <label for="freq">일주일에 <output id="freq-out"><span class="num">3</span><small>번</small></output></label>
+      <input type="range" id="freq" min="1" max="7" value="3">
+      <div class="ticks" id="freq-ticks" aria-hidden="true"></div>
+      <div class="plans" id="plans"></div>
+      <div class="verdict" id="verdict"></div>
+      <div class="pt">
+        <div><b>일일입장권</b><span class="p num">10,000원</span><span>리뷰 할인가 · 네이버 예약 필수</span></div>
+        <div><b>2:1 그룹 PT</b><span class="p num">26,000원</span><span>1회 · 둘이 함께</span></div>
+        <div><b>첫걸음 PT</b><span class="p num">40,000원</span><span>신규 회원 · 단 한 번</span></div>
+      </div>
+      <p class="note">가격은 네이버 플레이스 기준이에요. 한 달은 약 4.3주로 계산했어요.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="why">
+  <div class="wrap">
+    <div class="eyebrow reveal">WHY VIVA</div>
+    <h2 class="reveal">운동이 이어지는 환경</h2>
+    <p class="sub reveal">혼자 시작하기 어려웠던 운동도, 환경이 바뀌면 결과가 달라져요.</p>
+    <div class="why reveal">
+      <div><span class="n">01</span><b>넓은 공간, 40종 넘는 기구</b><p>웨이트와 유산소가 고루 있어서 붐비지 않게 운동할 수 있어요.</p></div>
+      <div><span class="n">02</span><b>프라이빗 분리 공간</b><p>따로 나뉜 공간에서 집중해서 운동할 수 있어요.</p></div>
+      <div><span class="n">03</span><b>체형 분석 · 1:1 맞춤</b><p>다이어트, 근력, 체형 개선 중 내 목표에 맞춰 짜드려요.</p></div>
+      <div><span class="n">04</span><b>재활 · 체형 교정</b><p>통증이 있다면 움직임과 체형부터 분석해서 바로잡아요.</p></div>
+      <div><span class="n">05</span><b>처음이어도 괜찮아요</b><p>기초부터 단계별로, 무리하지 않게 안내해 드려요.</p></div>
+      <div><span class="n">06</span><b>넉넉한 무료 주차</b><p>건물 앞 100평, 뒤편 200평 주차장을 쓸 수 있어요.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="trainers">
+  <div class="wrap">
+    <div class="eyebrow reveal">TRAINERS</div>
+    <h2 class="reveal">결과로 말하는 트레이너</h2>
+    <p class="sub reveal">트레이너 한 사람 한 사람이 직접 남긴 말이에요.</p>
+    <div class="trainers reveal">
+      <div class="trainer"><div class="ph">사진<br>자리</div><span class="role">대표 트레이너</span><q>회원님의 시간을 가치 있게 바꾸는 것, 그게 제가 존재하는 이유입니다.</q></div>
+      <div class="trainer"><div class="ph">사진<br>자리</div><span class="role">팀장 트레이너</span><q>자신 있습니다. 결과로만 평가받는 트레이너입니다.</q></div>
+      <div class="trainer"><div class="ph">사진<br>자리</div><span class="role">재활 지도 트레이너</span><q>통증, 원인을 분석하고, 정답으로 교정합니다.</q></div>
+    </div>
+    <div class="creds reveal"><span>트레이너 전원 대회 경력</span><span>재활교정 자격증 지도자</span><span>PT 상담은 대표가 직접</span></div>
+  </div>
+</section>
+
+<section class="block" id="reviews">
+  <div class="wrap">
+    <div class="eyebrow reveal">REVIEWS</div>
+    <h2 class="reveal">회원들이 꼽은 비바</h2>
+    <div class="rv-head reveal">
+      <div><b class="num"><i>★</i>4.96</b><span>네이버 별점</span></div>
+      <div><b class="num">633</b><span>리뷰 키워드 선택 · 551명</span></div>
+    </div>
+    <div class="bars reveal" id="bars"></div>
+  </div>
+</section>
+
+<section class="block" id="book">
+  <div class="wrap">
+    <div class="eyebrow reveal">BOOKING</div>
+    <h2 class="reveal">네이버로 바로 예약</h2>
+    <p class="sub reveal">상담도, 체험도 예약하고 오시면 기다리지 않아요.</p>
+    <div class="book reveal">
+      <a class="bk" href="https://map.naver.com/p/entry/place/1700435019" target="_blank" rel="noopener"><b>1:1 무료 PT 체험</b><span>받을지 말지 고민이라면, 먼저 받아 보고 결정하세요.</span><small><i>★</i> 5 · 방문자 리뷰 41</small><span class="go">예약하기 →</span></a>
+      <a class="bk" href="https://map.naver.com/p/entry/place/1700435019" target="_blank" rel="noopener"><b>회원권 상담</b><span>선착순 30명 · 시설과 이용 안내부터 차근차근</span><small><i>★</i> 5 · 방문자 리뷰 44</small><span class="go">예약하기 →</span></a>
+      <a class="bk" href="https://map.naver.com/p/entry/place/1700435019" target="_blank" rel="noopener"><b>PT 상담 (대표 직접)</b><span>PT 상담은 100% 예약제로 운영해요.</span><small><i>★</i> 5 · 방문자 리뷰 23</small><span class="go">예약하기 →</span></a>
+      <a class="bk" href="https://map.naver.com/p/entry/place/1700435019" target="_blank" rel="noopener"><b>일일입장권</b><span>네이버 리뷰 작성 시 5천원 할인 · 예약 필수</span><small><i>★</i> 5 · 방문자 리뷰 20</small><span class="go">예약하기 →</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="gallery">
+  <div class="wrap">
+    <div class="eyebrow reveal">SPACE</div>
+    <h2 class="reveal">센터 사진</h2>
+    <div class="photos reveal">
+      <div class="photo" id="photo-main"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><b>센터 전경</b>넓게 보이는 한 장</div>
+      <div class="photo" id="photo-weight"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><b>웨이트 존</b>머신 · 프리웨이트</div>
+      <div class="photo" id="photo-cardio"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><b>유산소 존</b>러닝머신 · 사이클</div>
+      <div class="photo" id="photo-private"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><b>프라이빗 공간</b>분리된 PT 공간</div>
+      <div class="photo" id="photo-out"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg><b>건물 · 주차장</b>찾아오는 길 사진</div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="visit">
+  <div class="wrap">
+    <div class="eyebrow reveal">VISIT</div>
+    <h2 class="reveal">운영시간 · 오시는 길</h2>
+    <div class="info reveal" style="margin-top:20px">
+      <div class="card">
+        <h3>운영시간</h3>
+        <div class="big-hours num">06:00 – 24:00</div>
+        <p class="small">월요일부터 일요일까지 매일 · 365일 연중무휴</p>
+        <div class="chips"><span>와이파이</span><span>남 · 녀 화장실 분리</span><span>샤워실</span><span>단체 이용</span><span>휠체어 출입</span><span>장애인 주차구역</span><span>문화비 소득공제</span></div>
+        <p class="small"><b style="color:var(--ink)">결제</b> · 지역화폐(카드형 · 모바일 · 지류), 제로페이, 간편결제</p>
+      </div>
+      <div class="card">
+        <h3>오시는 길</h3>
+        <p class="addr">경남 양산시 평산7길 8, 2층</p>
+        <p class="small">평산동 뚜레쥬르 · GS25 편의점 골목으로 20m만 걸어오시면 돼요.</p>
+        <div class="parking">
+          <div><b>P1</b>건물 1층 야외주차장 100평 · 무료</div>
+          <div><b>P2</b>건물 뒤편 평산 장 서는 곳(샤브아 맞은편) 200평 · 무료</div>
+        </div>
+        <div class="map-btns">
+          <a class="btn map-btn" href="https://map.naver.com/p/entry/place/1700435019" target="_blank" rel="noopener"><i style="background:#03C75A">N</i>네이버</a>
+          <a class="btn map-btn" href="https://map.kakao.com/link/search/%EB%B9%84%EB%B0%94%ED%94%BC%ED%8A%B8%EB%8B%88%EC%8A%A4%20%ED%8F%89%EC%82%B0%EB%8D%95%EA%B3%84%EC%A0%90" target="_blank" rel="noopener"><i style="background:#F2B705;color:#1A1408">K</i>카카오</a>
+          <a class="btn map-btn" href="https://www.google.com/maps/search/?api=1&amp;query=%EC%96%91%EC%82%B0%EC%8B%9C+%ED%8F%89%EC%82%B07%EA%B8%B8+8" target="_blank" rel="noopener"><i style="background:#4285F4">G</i>구글</a>
+        </div>
+        <div class="row2">
+          <a class="btn" href="tel:050714733451">전화 0507-1473-3451</a>
+          <button class="btn" type="button" id="copy">주소 복사</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span class="logo"><b>VIVA <i>FITNESS</i></b></span>
+    <span>헬스&amp;PT 평산덕계점 · 경남 양산시 평산7길 8, 2층 · 0507-1473-3451 · <a href="https://blog.naver.com/ehdwh9332" target="_blank" rel="noopener">블로그</a> · <a href="https://www.instagram.com/vivafitness__2/" target="_blank" rel="noopener">인스타그램</a></span>
+  </div>
+</footer>
+
+<div class="actionbar">
+  <div class="wrap">
+    <a class="btn" href="tel:050714733451">전화하기</a>
+    <a class="btn" href="#price">가격</a>
+    <a class="btn volt" href="#book">무료 PT 예약</a>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const $ = id => document.getElementById(id);
+const won = n => Math.round(n).toLocaleString('ko-KR') + '원';
+
+// 이벤트 띠: 11월 30일 끝나면 숨김
+(function () {
+  const end = new Date(2026, 10, 30, 23, 59, 59), now = new Date();
+  if (now > end) { $('event').hidden = true; return; }
+  const d = Math.ceil((new Date(2026, 10, 30) - new Date(now.getFullYear(), now.getMonth(), now.getDate())) / 864e5);
+  $('dday').textContent = d === 0 ? 'D-DAY' : 'D-' + d;
+})();
+
+// 영업 상태: 매일 06:00 ~ 24:00
+function status() {
+  const now = new Date(), m = now.getHours() * 60 + now.getMinutes(), st = $('status');
+  if (m < 360) { st.className = 'status closed'; st.textContent = '오늘 06:00 오픈'; }
+  else if (m >= 1410) { st.className = 'status soon'; st.textContent = '곧 마감 · 24:00까지'; }
+  else { st.className = 'status'; st.textContent = '지금 운동 가능 · 24:00까지'; }
+}
+status(); setInterval(status, 60000);
+
+// 회원권 계산기
+const PLANS = [{ m: 3, p: 210000 }, { m: 6, p: 320000 }, { m: 12, p: 480000 }];
+const DAY = 10000, WEEKS_PER_MONTH = 52 / 12;
+const freq = $('freq');
+(function ticks() {
+  const box = $('freq-ticks');
+  let h = ''; for (let v = 1; v <= 7; v++) h += `<button type="button" tabindex="-1" data-v="${v}" style="left:calc(var(--pad) + (100% - 2 * var(--pad)) * ${(v - 1) / 6})">${v}회</button>`;
+  box.innerHTML = h;
+  box.addEventListener('click', e => { const b = e.target.closest('button'); if (b) { freq.value = b.dataset.v; calc(); } });
+})();
+function calc() {
+  const w = +freq.value;
+  $('freq-out').innerHTML = `<span class="num">${w}</span><small>번</small>`;
+  $('freq-ticks').querySelectorAll('button').forEach(b => b.classList.toggle('on', +b.dataset.v === w));
+  const rows = PLANS.map(pl => { const visits = Math.round(w * WEEKS_PER_MONTH * pl.m); return { ...pl, visits, per: pl.p / visits, month: pl.p / pl.m, daySum: visits * DAY }; });
+  const best = Math.min(...rows.map(r => r.per));
+  $('plans').innerHTML = rows.map(r => `
+    <div class="plan${r.per === best ? ' best' : ''}">
+      <h3>헬스 ${r.m}개월</h3>
+      <div class="price num">${won(r.p)}</div>
+      <div class="row"><span>한 달에</span><b>${won(r.month)}</b></div>
+      <div class="row"><span>약 ${r.visits}번 운동</span><b class="num">${r.visits}회</b></div>
+      <div class="row per"><span>1회당</span><b>${won(r.per)}</b></div>
+    </div>`).join('');
+  const twelve = rows[2], save = twelve.daySum - twelve.p;
+  const breakEven = Math.ceil(rows[0].month / DAY);
+  $('verdict').innerHTML = save > 0
+    ? `일일권으로 12개월 다니면 <b>${won(twelve.daySum)}</b>, 12개월 회원권이면 <b>${won(save)}</b> 아껴요.`
+    : `주 ${w}회라면 일일권도 괜찮아요. 한 달에 <b>${breakEven}번</b> 넘게 오면 회원권이 이득이에요.`;
+}
+freq.addEventListener('input', calc); calc();
+
+// 리뷰 키워드
+const KW = [['친절해요', 520], ['시설이 깔끔해요', 409], ['자세를 꼼꼼히 봐주세요', 331], ['수업이 체계적이에요', 277], ['기구가 다양해요', 272], ['상담이 자세해요', 237], ['가격이 합리적이에요', 219], ['공간이 넓어요', 165], ['선생님 실력이 좋아요', 111], ['주차하기 편해요', 93], ['과도한 권유가 없어요', 23]];
+$('bars').innerHTML = KW.map(([k, n]) => `<div class="bar${k.includes('권유') ? ' hl' : ''}" style="--w:0%" data-w="${(n / 520 * 100).toFixed(1)}%"><span>“${k}”</span><b>${n}</b></div>`).join('');
+
+$('copy').addEventListener('click', async () => {
+  const text = '경남 양산시 평산7길 8, 2층 비바피트니스';
+  try { await navigator.clipboard.writeText(text); toast('주소를 복사했어요'); } catch (e) { toast(text); }
+});
+let tt; function toast(m) { const t = $('toast'); t.textContent = m; t.hidden = false; clearTimeout(tt); tt = setTimeout(() => t.hidden = true, 1800); }
+
+const reveal = el => { el.classList.add('in'); if (el.id === 'bars') el.querySelectorAll('.bar').forEach(b => b.style.setProperty('--w', b.dataset.w)); };
+const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { reveal(e.target); io.unobserve(e.target); } }), { threshold: .1 }) : null;
+document.querySelectorAll('.reveal').forEach(el => io ? io.observe(el) : reveal(el));
+</script>
+</body>
+</html>
