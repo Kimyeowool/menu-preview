@@ -176,6 +176,18 @@ footer .wrap { padding-block: 40px 24px; display: flex; align-items: center; gap
   .photos { grid-template-columns: 1fr 1fr; }
   .photo:first-child { grid-column: 1 / -1; grid-row: auto; aspect-ratio: 4 / 3; }
 }
+
+/* 로고처럼 검은 선: 바깥 굵은 선 + 안쪽 가는 선 (히어로 제외) */
+:root { --rule: var(--ink); --rule-soft: color-mix(in srgb, var(--ink) 22%, transparent); }
+.promise div, .sig, .card, .guide div, .stat div { border: 1.5px solid var(--rule); box-shadow: inset 0 0 0 3px var(--surface), inset 0 0 0 4px var(--rule-soft); }
+.sig-img { box-shadow: 0 0 0 3px var(--surface), 0 0 0 4.5px var(--rule); }
+.words span { border-color: var(--rule-soft); }
+.menu-list { border-top: 1.5px solid var(--rule); border-bottom: 1.5px solid var(--rule); }
+.menu-list li:last-child { border-bottom: 0; }
+.seats div { box-shadow: inset 0 0 0 1px var(--rule-soft); }
+section.block h2::after { content: ""; display: block; width: 96px; height: 14px; margin-top: 10px; background: var(--rule); -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 14'%3E%3Crect x='0' y='6' width='34' height='2'/%3E%3Crect x='62' y='6' width='34' height='2'/%3E%3Cellipse cx='48' cy='5' rx='3.6' ry='4.6'/%3E%3Crect x='47' y='8' width='2' height='6'/%3E%3C/svg%3E") left center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 14'%3E%3Crect x='0' y='6' width='34' height='2'/%3E%3Crect x='62' y='6' width='34' height='2'/%3E%3Cellipse cx='48' cy='5' rx='3.6' ry='4.6'/%3E%3Crect x='47' y='8' width='2' height='6'/%3E%3C/svg%3E") left center / contain no-repeat; }
+footer .wrap { border-top: 1.5px solid var(--rule); box-shadow: 0 -4px 0 -2.5px var(--rule-soft); margin-top: 40px; }
+.actionbar { border-top: 1.5px solid var(--rule); }
 </style>
 </head>
 <body>
