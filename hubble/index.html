@@ -90,7 +90,12 @@ section.block h2 { font-size: clamp(25px, 5vw, 32px); margin-bottom: 8px; }
 .q { margin-bottom: 18px; }
 .q label, .q .lbl { display: flex; justify-content: space-between; align-items: baseline; font-weight: 700; font-size: 14.5px; margin-bottom: 8px; }
 .q output { font-family: var(--font-serif); font-size: 20px; color: var(--gold-2); }
-input[type=range] { width: 100%; accent-color: var(--gold); height: 28px; }
+input[type=range] { display: block; width: 100%; margin: 0; accent-color: var(--gold); height: 28px; }
+.ticks { position: relative; height: 30px; margin: 2px 0 0; --pad: 8px; }
+.ticks i { position: absolute; top: 0; width: 1px; height: 6px; background: var(--line); transform: translateX(-50%); }
+.ticks i.on { background: var(--gold); }
+.ticks button { position: absolute; top: 8px; transform: translateX(-50%); font: inherit; font-size: 11.5px; line-height: 1; color: var(--muted); background: none; border: 0; padding: 4px 2px; cursor: pointer; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ticks button.on { color: var(--gold-2); font-weight: 700; }
 .seg { display: flex; flex-wrap: wrap; gap: 6px; }
 .seg button { font: inherit; font-size: 14px; border: 1px solid var(--line); background: transparent; color: var(--ink); padding: 7px 14px; border-radius: 999px; cursor: pointer; }
 .seg button[aria-pressed="true"] { background: var(--gold); border-color: var(--gold); color: var(--gold-ink); font-weight: 700; }
@@ -222,10 +227,12 @@ footer .wrap { padding-block: 48px 24px; display: flex; align-items: center; gap
       <div class="q">
         <label for="days">일주일에 <output id="days-out" class="num">5일</output></label>
         <input type="range" id="days" min="1" max="7" value="5">
+        <div class="ticks" id="days-ticks" aria-hidden="true"></div>
       </div>
       <div class="q">
         <label for="hours">하루에 <output id="hours-out" class="num">6시간</output></label>
         <input type="range" id="hours" min="1" max="16" value="6">
+        <div class="ticks" id="hours-ticks" aria-hidden="true"></div>
       </div>
       <div class="q">
         <div class="lbl" id="weeks-lbl">다닐 기간</div>
@@ -361,6 +368,7 @@ let weeks = 4;
 function calc() {
   const d = +$('days').value, h = +$('hours').value, w = weeks, visits = d * w, total = d * h * w;
   $('days-out').textContent = d + '일'; $('hours-out').textContent = h + '시간';
+  if ($('days-ticks').children.length) markTicks();
   $('total-line').innerHTML = `총 <b class="num">${visits}번</b> 방문, <b class="num">${total}시간</b> 공부하는 계획이에요.`;
   const day = dayCost(h), pack = cover(total, PACK), free = cover(w, FREE), fixed = cover(w, FIXED);
   const rows = [
@@ -376,6 +384,21 @@ function calc() {
       <span class="price num">${won(r.cost)}<small>시간당 ${won(Math.round(r.cost / total))}</small></span>
     </div>`).join('');
 }
+// 슬라이더 눈금: 값마다 작은 선, 라벨은 지정한 값에만 (누르면 그 값으로)
+function buildTicks(inputId, labels, unit) {
+  const inp = $(inputId), box = $(inputId + '-ticks'), min = +inp.min, max = +inp.max;
+  const pos = v => `calc(var(--pad) + (100% - 2 * var(--pad)) * ${(v - min) / (max - min)})`;
+  let html = '';
+  for (let v = min; v <= max; v++) html += `<i data-v="${v}" style="left:${pos(v)}"></i>`;
+  labels.forEach(v => html += `<button type="button" tabindex="-1" data-v="${v}" style="left:${pos(v)}">${v}${unit}</button>`);
+  box.innerHTML = html;
+  box.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; inp.value = b.dataset.v; calc(); });
+}
+function markTicks() {
+  ['days', 'hours'].forEach(id => { const v = $(id).value; $(id + '-ticks').querySelectorAll('[data-v]').forEach(el => el.classList.toggle('on', el.dataset.v === v)); });
+}
+buildTicks('days', [1, 2, 3, 4, 5, 6, 7], '일');
+buildTicks('hours', [1, 4, 8, 12, 16], '시간');
 $('days').addEventListener('input', calc);
 $('hours').addEventListener('input', calc);
 $('weeks').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; weeks = +b.dataset.w; $('weeks').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', x === b)); calc(); });
