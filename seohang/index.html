@@ -70,24 +70,14 @@ nav.links a { text-decoration: none; color: var(--muted); }
 
 /* 유리잔 일러스트 (히어로 · 라떼 바 공용) */
 .stage { position: relative; display: grid; place-items: center; }
-.stage .plate { position: absolute; bottom: 4px; width: 78%; height: 34px; border-radius: 50%; background: radial-gradient(closest-side, rgba(91, 51, 31, .22), rgba(91, 51, 31, 0)); }
-.glass { position: relative; width: 118px; height: 210px; clip-path: polygon(0 0, 100% 0, 92% 100%, 8% 100%); background: rgba(255, 255, 255, .6); border-radius: 0 0 18px 18px; transition: width .5s ease, height .5s ease; }
-.glass .fill { position: absolute; left: 0; right: 0; bottom: 0; height: 90%; display: flex; flex-direction: column-reverse; }
-.glass .layer { width: 100%; transition: height .7s cubic-bezier(.3,.7,.2,1), background-color .6s ease; }
-.glass .ice { position: absolute; width: 27px; height: 24px; border-radius: 7px; background: rgba(255, 255, 255, .5); border: 1.5px solid rgba(255, 255, 255, .8); }
-.glass .shine { position: absolute; left: 12%; top: 6%; bottom: 8%; width: 9px; border-radius: 9px; background: rgba(255, 255, 255, .55); }
-.glass::after { content: ""; position: absolute; inset: 0; box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .7); }
-.glass.bottle { width: 112px; height: 250px; clip-path: polygon(34% 0, 66% 0, 66% 14%, 100% 26%, 100% 100%, 0 100%, 0 26%, 34% 14%); border-radius: 0 0 14px 14px; }
-.glass.bottle .fill { height: 80%; }
-.glass.bottle .ice { display: none; }
-.cap { position: absolute; top: calc(50% - 141px); left: 50%; translate: -50% 8px; width: 42px; height: 18px; border-radius: 4px; background: var(--brown-deep); opacity: 0; transition: opacity .3s ease; }
-.stage.is-bottle .cap { opacity: 1; translate: -50% 0; }
-.straw { position: absolute; top: calc(50% - 150px); left: calc(50% + 2px); width: 44px; height: 170px; overflow: visible; transition: opacity .3s ease; }
-.stage.is-bottle .straw { opacity: 0; }
+
+.cup { height: 100%; max-height: 290px; width: auto; overflow: visible; }
+.cup .liq-in { animation: liq .6s ease both; transform-origin: 50% 100%; }
+@keyframes liq { from { opacity: .2; transform: scaleY(.92); } }
 
 .hero .stage { padding-top: 36px; min-height: 380px; }
 
-.hero .glass { width: 180px; height: 250px; }
+
 .hero .card-note { position: absolute; right: 0; top: 12%; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 10px 12px; font-size: 12.5px; line-height: 1.45; box-shadow: 0 16px 30px -22px rgba(60, 30, 10, .5); transform: rotate(3deg); max-width: 150px; }
 .hero .card-note b { font-family: var(--font-head); font-size: 15px; color: var(--brown); display: block; }
 .hero .card-note2 { right: auto; left: 4%; top: auto; bottom: 14%; transform: rotate(-3deg); }
@@ -97,7 +87,7 @@ nav.links a { text-decoration: none; color: var(--muted); }
 .hero .kicker, .hero h1, .hero .lead, .hero .chips, .hero .cta { animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
 .hero h1 { animation-delay: .1s; } .hero .lead { animation-delay: .25s; } .hero .chips { animation-delay: .4s; } .hero .cta { animation-delay: .5s; }
 @keyframes rise { from { opacity: 0; translate: 0 14px; } to { opacity: 1; translate: 0 0; } }
-@media (prefers-reduced-motion: reduce) { .hero *, .pour { animation: none !important; } .glass .layer { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .hero *, .pour { animation: none !important; } .cup .liq-in { animation: none; } }
 
 section.block .wrap { padding-block: 60px 8px; }
 .eyebrow { font-family: var(--font-head); font-size: 15px; color: var(--brown); letter-spacing: .08em; }
@@ -244,7 +234,7 @@ footer .wrap { padding-block: 48px 24px; display: flex; flex-wrap: wrap; align-i
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, #000 75%, transparent 100%); mask-image: linear-gradient(to bottom, transparent 0%, #000 40%, #000 75%, transparent 100%); }
   .hero .card-note { max-width: 118px; font-size: 11.5px; padding: 8px 10px; }
   .hero .card-note b { font-size: 14px; }
-  .hero .glass { width: 150px; height: 215px; }
+
 
 }
 </style>
@@ -320,10 +310,7 @@ footer .wrap { padding-block: 48px 24px; display: flex; flex-wrap: wrap; align-i
     <p class="sub reveal">눌러 보면 잔이 바뀌어요. 아이스 메뉴는 1리터 보틀로도 담아 가실 수 있어요.</p>
     <div class="bar reveal">
       <div class="stage" id="bar-stage" aria-hidden="true">
-        <div class="plate"></div>
-        <svg class="straw" viewBox="0 0 44 170"><path d="M8 168 V44 Q8 30 18 22 L36 8" fill="none" stroke="#1E1714" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 40 l7 2 M5 46 l7 2 M5 52 l7 2" stroke="#4A403B" stroke-width="1.4" stroke-linecap="round"/></svg>
-        <div class="cap"></div>
-        <div class="glass" id="bar-glass"></div>
+        <svg id="bar-cup" class="cup" viewBox="0 0 200 300"></svg>
       </div>
       <div>
         <div class="lattes" id="lattes" role="group" aria-label="라떼 고르기"></div>
@@ -522,7 +509,7 @@ footer .wrap { padding-block: 48px 24px; display: flex; flex-wrap: wrap; align-i
   requestAnimationFrame(tick);
 })();const won = n => n.toLocaleString('ko-KR') + '원';
 const $ = id => document.getElementById(id);
-const MILK = '#EDE0CE', ESP = '#5B331F', CREMA = '#9C6B45';
+const MILK = '#F4EFE8', ESP = '#5B331F', CREMA = '#9C6B45';
 
 // 라떼 바: 잔 아래부터 위로 쌓이는 층 [색, 높이%]
 const LATTES = [
@@ -537,19 +524,49 @@ const LATTES = [
   { n: '딸기라떼', p: 5500, l: 12000, tag: '논커피', dot: '#D9475B', d: '딸기 함량이 높은 청을 써서 상큼하고 달달해요.', layers: [['#C8364B', 26], ['#EBA1AC', 12], [MILK, 52]] },
   { n: '악마초코라떼', p: 5300, l: 11600, tag: '논커피', dot: '#5A3326', d: '파우더 말고 고농축 초코 소스로 만들어서 진하고 달달해요.', layers: [['#4A281C', 30], ['#7E4F3C', 18], ['#A47A65', 42]] },
 ];
-function pourInto(glass, layers, opts = {}) {
-  if (!glass.querySelector('.fill')) {
-    glass.innerHTML = '<div class="fill"></div><span class="ice" style="left:22%;top:30%;transform:rotate(12deg)"></span><span class="ice" style="left:52%;top:20%;transform:rotate(-18deg)"></span><span class="ice" style="left:38%;top:44%;transform:rotate(30deg)"></span><span class="shine"></span>';
-  }
-  const fill = glass.querySelector('.fill');
-  while (fill.children.length < 4) fill.appendChild(document.createElement('div')).className = 'layer';
-  const total = layers.reduce((s, x) => s + x[1], 0);
-  [...fill.children].forEach((el, i) => {
-    const L = layers[i];
-    el.style.backgroundColor = L ? L[0] : 'transparent';
-    el.style.height = L ? (L[1] / total * 100) + '%' : '0%';
-    el.classList.toggle('pour', !!opts.pour && i === layers.length - 1);
+// 실제 모양에 가까운 잔 / 1리터 보틀 (SVG), 층 경계는 마블처럼 섞이게
+function drawCup(layers, bottle) {
+  const sv = $('bar-cup'), O = 'rgba(110,90,80,.45)';
+  const total = layers.reduce((a, x) => a + x[1], 0);
+  const top = bottle ? 96 : 86, bot = bottle ? 280 : 270, H = bot - top;
+  let acc = 0, stops = '';
+  layers.forEach(([c, h], i) => {
+    const a = acc / total, b = (acc + h) / total; acc += h;
+    const s0 = i ? a + .05 : 0, s1 = i < layers.length - 1 ? b - .05 : 1;
+    stops += '<stop offset="' + (1 - s1).toFixed(3) + '" stop-color="' + c + '"/><stop offset="' + (1 - s0).toFixed(3) + '" stop-color="' + c + '"/>';
   });
+  stops = stops.split('<stop').slice(1).map(x => '<stop' + x).sort((p, q) => parseFloat(p.split('"')[1]) - parseFloat(q.split('"')[1])).join('');
+  const cupOut = 'M50 56 Q47 170 55 262 Q57 284 80 284 L120 284 Q143 284 145 262 Q153 170 150 56 Z';
+  const cupIn = 'M55 60 Q52 170 59 256 Q61 271 80 271 L120 271 Q139 271 141 256 Q148 170 145 60 Z';
+  const botOut = 'M62 78 Q48 82 48 100 L50 168 Q53 177 50 186 L48 266 Q48 286 68 286 L132 286 Q152 286 152 266 L150 186 Q147 177 150 168 L152 100 Q152 82 138 78 Z';
+  const botIn = 'M64 82 Q52 86 52 102 L54 168 Q57 177 54 186 L52 265 Q52 281 69 281 L131 281 Q148 281 148 265 L146 186 Q143 177 146 168 L148 102 Q148 86 136 82 Z';
+  const out = bottle ? botOut : cupOut, inn = bottle ? botIn : cupIn;
+  let h = '<defs><linearGradient id="liq" x1="0" y1="0" x2="0" y2="1">' + stops + '</linearGradient>'
+    + '<filter id="marble" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency=".03 .05" numOctaves="3" seed="7"/><feDisplacementMap in="SourceGraphic" scale="34" xChannelSelector="R" yChannelSelector="G"/></filter>'
+    + '<clipPath id="inn"><path d="' + inn + '"/></clipPath><clipPath id="lv"><rect x="0" y="' + top + '" width="200" height="' + (H + 20) + '"/></clipPath>'
+    + '<linearGradient id="gl" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".18" stop-color="#fff" stop-opacity=".08"/><stop offset=".8" stop-color="#fff" stop-opacity=".05"/><stop offset="1" stop-color="#fff" stop-opacity=".4"/></linearGradient>'
+    + '<pattern id="facet" width="16" height="14" patternUnits="userSpaceOnUse"><path d="M0 7 L8 0 L16 7 L8 14 Z" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="1"/></pattern></defs>';
+  // 받침 · 그림자
+  h += bottle ? '<ellipse cx="100" cy="288" rx="62" ry="7" fill="#5B331F" opacity=".16"/>'
+              : '<ellipse cx="100" cy="288" rx="66" ry="10" fill="#B9AEA7"/><ellipse cx="100" cy="286" rx="64" ry="9" fill="#D9D0CA"/><ellipse cx="100" cy="286" rx="50" ry="5" fill="#5B331F" opacity=".14"/>';
+  // 빨대 (잔일 때만)
+  if (!bottle) h += '<path d="M118 262 L113 40 Q112 26 122 18 L140 6" fill="none" stroke="#1E1714" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><path d="M110 36 l7 1 M110 42 l7 1 M110 48 l7 1" stroke="#5A504B" stroke-width="1.3"/>';
+  // 음료 (마블)
+  h += '<g clip-path="url(#inn)"><g clip-path="url(#lv)"><g class="liq-in"><rect x="30" y="' + (top - 8) + '" width="140" height="' + (H + 30) + '" fill="url(#liq)" filter="url(#marble)"/>'
+     + '<rect x="40" y="' + top + '" width="120" height="3" fill="#fff" opacity=".25"/></g></g>';
+  if (!bottle) h += [[70, 70, 14], [104, 64, -18], [84, 96, 26], [118, 100, -8]].map(([x, y, r]) => '<rect x="' + x + '" y="' + y + '" width="22" height="20" rx="5" fill="#fff" opacity=".28" stroke="#fff" stroke-opacity=".7" transform="rotate(' + r + ' ' + (x + 11) + ' ' + (y + 10) + ')"/>').join('');
+  else h += '<rect x="40" y="186" width="120" height="100" fill="url(#facet)"/>';
+  h += '</g>';
+  // 유리 / 페트
+  h += '<path d="' + out + '" fill="url(#gl)" stroke="' + O + '" stroke-width="1.5"/>';
+  h += '<path d="' + (bottle ? 'M60 100 Q58 180 60 262' : 'M62 72 Q60 170 65 250') + '" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".6"/>';
+  if (!bottle) h += '<ellipse cx="100" cy="56" rx="50" ry="5" fill="none" stroke="' + O + '" stroke-width="1.5"/><path d="M58 276 Q100 282 142 276" fill="none" stroke="#fff" stroke-width="3" opacity=".7"/>';
+  else h += '<rect x="58" y="70" width="84" height="12" rx="3" fill="#fff" opacity=".35" stroke="' + O + '"/>'
+          + '<rect x="56" y="38" width="88" height="36" rx="12" fill="#1F1B1A"/><rect x="56" y="38" width="88" height="36" rx="12" fill="none" stroke="#000" stroke-opacity=".5"/>'
+          + '<path d="M66 46 Q100 40 134 46" fill="none" stroke="#fff" stroke-width="3" opacity=".22" stroke-linecap="round"/>'
+          + '<path d="M54 168 Q100 176 146 168 M54 186 Q100 178 146 186" fill="none" stroke="#fff" stroke-width="1.5" opacity=".5"/>';
+  const z = bottle ? 1.06 : .9;
+  sv.innerHTML = h.replace('</defs>', '</defs><g transform="translate(100 290) scale(' + z + ') translate(-100 -290)">') + '</g>';
 }
 
 
@@ -565,8 +582,7 @@ function showLatte() {
   $('sz-cup').setAttribute('aria-pressed', !big); $('sz-l').setAttribute('aria-pressed', big);
   $('l-price').textContent = won(big ? m.l : m.p);
   $('l-note').textContent = !m.l ? '1리터 보틀은 아직 없는 메뉴예요' : big ? '아이스만 가능해요' : `1리터 보틀은 ${won(m.l)}`;
-  $('bar-glass').classList.toggle('bottle', big); $('bar-stage').classList.toggle('is-bottle', big);
-  pourInto($('bar-glass'), m.layers);
+  drawCup(m.layers, big);
 }
 $('lattes').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; cur = [...$('lattes').children].indexOf(b); showLatte(); });
 $('sz-cup').addEventListener('click', () => { big = false; showLatte(); });
