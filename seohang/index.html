@@ -72,8 +72,8 @@ nav.links a { text-decoration: none; color: var(--muted); }
 .glass.bottle { width: 112px; height: 250px; clip-path: polygon(34% 0, 66% 0, 66% 14%, 100% 26%, 100% 100%, 0 100%, 0 26%, 34% 14%); border-radius: 0 0 14px 14px; }
 .glass.bottle .fill { height: 80%; }
 .glass.bottle .ice { display: none; }
-.cap { position: absolute; top: 0; left: 50%; translate: -50% -14px; width: 42px; height: 18px; border-radius: 4px; background: var(--brown-deep); opacity: 0; transition: opacity .3s ease; }
-.stage.is-bottle .cap { opacity: 1; translate: -50% -22px; }
+.cap { position: absolute; top: calc(50% - 141px); left: 50%; translate: -50% 8px; width: 42px; height: 18px; border-radius: 4px; background: var(--brown-deep); opacity: 0; transition: opacity .3s ease; }
+.stage.is-bottle .cap { opacity: 1; translate: -50% 0; }
 .straw { position: absolute; top: -34px; left: 58%; width: 9px; height: 150px; border-radius: 5px; background: repeating-linear-gradient(180deg, var(--rose) 0 14px, #FFF7F3 14px 28px); transform: rotate(10deg); transform-origin: bottom; transition: opacity .3s ease; }
 .stage.is-bottle .straw { opacity: 0; }
 
