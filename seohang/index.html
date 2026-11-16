@@ -4,7 +4,7 @@
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>카페, 서행 · 정관 라떼 카페</title>
-<meta name="description" content="부산 기장군 정관읍 정관로 581, 카페 서행. 시그니처 라떼와 흑마늘 흑와플, 1리터 보틀 포장. 평일 07시, 주말 09시 오픈.">
+<meta name="description" content="부산 기장군 정관읍 정관로 581, 카페 서행. 시그니처 라떼와 흑마늘 흑와플, 1리터 보틀 포장. 평일 08시, 주말·공휴일 09시 오픈, 수요일은 16시 마감.">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23FFFDF9' stroke='%23E6DACB' stroke-width='2'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='serif' font-weight='700' font-size='32' fill='%237A4A2C'%3E서%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&amp;family=Noto+Sans+KR:wght@400;500;700;900&amp;display=swap">
@@ -233,11 +233,11 @@ footer .wrap { padding-block: 48px 24px; display: flex; flex-wrap: wrap; align-i
   <div class="wrap">
     <a class="logo" href="#"><span class="mark">서</span><b>카페, 서행</b><small>정관읍 정관로</small></a>
     <nav class="links"><a href="#latte">라떼 고르기</a><a href="#set">흑와플 · 세트</a><a href="#menu">전체 메뉴</a><a href="#visit">오시는 길</a></nav>
-    <span class="status closed" id="status">07:00 오픈</span>
+    <span class="status closed" id="status">08:00 오픈</span>
   </div>
 </header>
 
-<div class="notice"><div class="wrap"><span><b>라스트오더</b> 매일 22:30</span><span><b>1리터 보틀</b> 아이스 음료는 1L로도 포장돼요</span></div></div>
+<div class="notice"><div class="wrap"><span><b>수요일</b> 16:00 조기 마감</span><span><b>라스트오더</b> 22:30</span><span><b>1리터 보틀</b> 아이스 음료는 1L로도 포장돼요</span></div></div>
 
 <section class="hero">
   <div class="wrap">
@@ -245,7 +245,7 @@ footer .wrap { padding-block: 48px 24px; display: flex; flex-wrap: wrap; align-i
       <div class="kicker"><span class="slow"><span>서행</span></span>부산 기장 정관 · since 2023</div>
       <h1>바쁜 하루,<br>여기서는 <em>서행</em>하세요</h1>
       <p class="lead">이름 그대로 잠깐 쉬어 가는 카페예요. 시그니처는 라떼 전부, 그리고 사장님이 직접 개발한 흑마늘 흑와플이에요.</p>
-      <div class="chips"><span class="hl">평일 07시 오픈</span><span>주말 09시</span><span>주차 가능</span><span>1L 보틀 포장</span><span>단체 · 예약</span></div>
+      <div class="chips"><span class="hl">평일 08시 오픈</span><span>주말 09시</span><span>수요일 16시 마감</span><span>주차 가능</span><span>1L 보틀 포장</span><span>단체 · 예약</span></div>
       <div class="cta"><a class="btn dark" href="#latte">라떼 골라보기</a><a class="btn" href="#visit">오시는 길</a></div>
     </div>
     <div class="stage" aria-hidden="true">
@@ -374,15 +374,15 @@ footer .wrap { padding-block: 48px 24px; display: flex; flex-wrap: wrap; align-i
       <div class="card">
         <h3>영업시간</h3>
         <table class="hours" id="hours-table">
-          <tr data-d="1"><td>월요일</td><td>07:00 – 23:00</td></tr>
-          <tr data-d="2"><td>화요일</td><td>07:00 – 23:00</td></tr>
-          <tr data-d="3"><td>수요일</td><td>07:00 – 23:00</td></tr>
-          <tr data-d="4"><td>목요일</td><td>07:00 – 23:00</td></tr>
-          <tr data-d="5"><td>금요일</td><td>07:00 – 23:00</td></tr>
+          <tr data-d="1"><td>월요일</td><td>08:00 – 23:00</td></tr>
+          <tr data-d="2"><td>화요일</td><td>08:00 – 23:00</td></tr>
+          <tr data-d="3"><td>수요일</td><td>08:00 – 16:00</td></tr>
+          <tr data-d="4"><td>목요일</td><td>08:00 – 23:00</td></tr>
+          <tr data-d="5"><td>금요일</td><td>08:00 – 23:00</td></tr>
           <tr data-d="6"><td>토요일</td><td>09:00 – 23:00</td></tr>
           <tr data-d="0"><td>일요일</td><td>09:00 – 23:00</td></tr>
         </table>
-        <p class="small">라스트오더는 매일 22:30이에요.</p>
+        <p class="small">공휴일은 주말처럼 09:00에 열어요. 라스트오더는 22:30이고, 수요일은 16:00에 일찍 닫아요.</p>
       </div>
       <div class="card">
         <h3>오시는 길</h3>
@@ -540,18 +540,19 @@ showCat(0);
 const KW = [['☕ 커피가 맛있어요', 63], ['💗 친절해요', 45], ['🛋️ 인테리어가 멋져요', 41], ['🥤 음료가 맛있어요', 40], ['🍰 디저트가 맛있어요', 25], ['🗣️ 대화하기 좋아요', 20]];
 $('kw').innerHTML = KW.map(([t, n]) => `<div class="kw-row"><span>${t}</span><span class="track"><i data-w="${n / KW[0][1] * 100}"></i></span><b>${n}</b></div>`).join('');
 
-// 영업 상태: 평일 07:00, 주말 09:00 ~ 23:00, 라스트오더 22:30
-const CLOSE = 23 * 60, LAST = 22 * 60 + 30;
-const openAt = d => (d === 0 || d === 6) ? 9 * 60 : 7 * 60;
+// 영업 상태: 평일 08:00, 주말 09:00 ~ 23:00 (수요일 16:00 마감), 라스트오더 22:30
+const openAt = d => (d === 0 || d === 6) ? 9 * 60 : 8 * 60;
+const closeAt = d => d === 3 ? 16 * 60 : 23 * 60;
 const hhmm = m => String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
 function status() {
   const now = new Date(), m = now.getHours() * 60 + now.getMinutes(), d = now.getDay(), st = $('status');
+  const CLOSE = closeAt(d), LAST = d === 3 ? CLOSE : 22 * 60 + 30, ct = hhmm(CLOSE);
   let cls = 'closed', txt;
   if (m < openAt(d)) txt = `오늘 ${hhmm(openAt(d))} 오픈`;
   else if (m >= CLOSE) txt = `영업 종료 · 내일 ${hhmm(openAt((d + 1) % 7))} 오픈`;
   else if (m >= LAST) { cls = 'soon'; txt = '라스트오더 지남 · 23:00 마감'; }
-  else if (m >= LAST - 30) { cls = 'soon'; txt = '곧 라스트오더 · 22:30'; }
-  else { cls = ''; txt = '영업 중 · 23:00까지'; }
+  else if (m >= LAST - 30) { cls = 'soon'; txt = d === 3 ? '곧 마감 · 수요일 16:00까지' : '곧 라스트오더 · 22:30'; }
+  else { cls = ''; txt = '영업 중 · ' + ct + '까지'; }
   st.className = 'status ' + cls; st.textContent = txt;
   $('hours-table').querySelectorAll('tr').forEach(tr => tr.classList.toggle('today', +tr.dataset.d === d));
 }
