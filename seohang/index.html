@@ -56,6 +56,10 @@ nav.links a { text-decoration: none; color: var(--muted); }
 .slow { display: inline-grid; place-items: center; width: 30px; height: 30px; background: var(--sign); border: 2px solid var(--ink); border-radius: 4px; transform: rotate(45deg); flex: none; }
 .slow span { transform: rotate(-45deg); font-size: 10px; font-weight: 900; color: var(--ink); }
 .hero h1 { font-size: clamp(32px, 7.6vw, 52px); line-height: 1.25; margin-top: 12px; }
+.h1-box { position: relative; isolation: isolate; }
+.h1-box h1 { position: relative; z-index: 1; }
+.cross { position: absolute; z-index: 0; left: -14px; bottom: -30px; width: min(470px, 108%); height: auto; opacity: .6; pointer-events: none; }
+.cross .walker { fill: #C9A27E; stroke: #C9A27E; }
 .hero h1 em { font-style: normal; color: var(--brown); background: linear-gradient(transparent 64%, var(--rose-soft) 64%); }
 .hero p.lead { color: var(--muted); margin: 14px 0 0; max-width: 36ch; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
@@ -264,8 +268,11 @@ footer .wrap { padding-block: 48px 24px; display: flex; flex-wrap: wrap; align-i
   <div class="hero-bg" aria-hidden="true"></div>
   <div class="wrap">
     <div>
-      <div class="kicker"><span class="slow"><span>서행</span></span>부산 기장 정관 · since 2023</div>
-      <h1>바쁜 하루,<br>여기서는 <em>서행</em>하세요</h1>
+      <div class="kicker">부산 기장 정관 · since 2023</div>
+      <div class="h1-box">
+        <svg class="cross" id="cross" viewBox="0 0 460 140" aria-hidden="true"></svg>
+        <h1>바쁜 하루,<br>여기서는 <em>서행</em>하세요</h1>
+      </div>
       <p class="lead">이름 그대로 잠깐 쉬어 가는 카페예요. 시그니처는 라떼 전부, 그리고 사장님이 직접 개발한 흑마늘 흑와플이에요.</p>
       <div class="chips"><span class="hl">평일 08시 오픈</span><span>주말 09시</span><span>수요일 16시 마감</span><span>주차 가능</span><span>1L 보틀 포장</span><span>단체 · 예약</span></div>
       <div class="cta"><a class="btn dark" href="#latte">라떼 골라보기</a><a class="btn" href="#visit">오시는 길</a></div>
@@ -453,6 +460,27 @@ footer .wrap { padding-block: 48px 24px; display: flex; flex-wrap: wrap; align-i
 <div class="toast" id="toast" hidden></div>
 
 <script>
+// 횡단보도를 천천히 건너는 네 사람
+(() => {
+  const sv = document.getElementById('cross'); if (!sv) return;
+  let h = '<rect x="0" y="104" width="460" height="30" rx="4" fill="#E4D7C6"/>';
+  for (let x = 10; x < 450; x += 34) h += '<rect x="' + x + '" y="106" width="18" height="26" rx="2" fill="#FFFDF9"/>';
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const swing = (cx, cy, a, dur, begin) => still ? '' : '<animateTransform attributeName="transform" type="rotate" values="' + a + ' ' + cx + ' ' + cy + ';' + (-a) + ' ' + cx + ' ' + cy + ';' + a + ' ' + cx + ' ' + cy + '" dur="' + dur + 's" begin="' + begin + 's" repeatCount="indefinite"/>';
+  const P = [{ x: 70, s: 1, k: 'cup' }, { x: 170, s: 1.06, k: '' }, { x: 268, s: .98, k: 'bag' }, { x: 368, s: 1.04, k: 'cup' }];
+  P.forEach((p, i) => {
+    const d = 1.9, b = -i * .45, hipY = 80, shY = 54;
+    let g = '<g transform="translate(' + p.x + ' ' + (110 - 110 * p.s) + ') scale(' + p.s + ')"><g class="walker" stroke-linecap="round" stroke-width="7">';
+    g += '<line x1="0" y1="' + hipY + '" x2="0" y2="108">' + swing(0, hipY, 22, d, b) + '</line>';
+    g += '<line x1="0" y1="' + hipY + '" x2="0" y2="108">' + swing(0, hipY, -22, d, b) + '</line>';
+    g += '<rect x="-8" y="46" width="16" height="38" rx="7" stroke="none"/>';
+    g += '<g><line x1="0" y1="' + shY + '" x2="0" y2="78" stroke-width="5"/>' + (p.k === 'cup' ? '<rect x="-5" y="76" width="10" height="13" rx="2" fill="#FFFDF9" stroke="none"/>' : p.k === 'bag' ? '<rect x="-8" y="76" width="16" height="16" rx="3" fill="#E3A79B" stroke="none"/>' : '') + swing(0, shY, -18, d, b) + '</g>';
+    g += '<line x1="0" y1="' + shY + '" x2="0" y2="78" stroke-width="5">' + swing(0, shY, 18, d, b) + '</line>';
+    g += '<circle cx="1" cy="34" r="9.5" stroke="none"/></g></g>';
+    h += '<g>' + g + (still ? '' : '<animateTransform attributeName="transform" type="translate" values="0 0;0 -2;0 0" dur="' + (d / 2) + 's" begin="' + b + 's" repeatCount="indefinite"/>') + '</g>';
+  });
+  sv.innerHTML = h;
+})();
 const won = n => n.toLocaleString('ko-KR') + '원';
 const $ = id => document.getElementById(id);
 const MILK = '#EDE0CE', ESP = '#5B331F', CREMA = '#9C6B45';
