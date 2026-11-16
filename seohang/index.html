@@ -58,8 +58,7 @@ nav.links a { text-decoration: none; color: var(--muted); }
 .hero h1 { font-size: clamp(32px, 7.6vw, 52px); line-height: 1.25; margin-top: 12px; }
 .h1-box { position: relative; isolation: isolate; }
 .h1-box h1 { position: relative; z-index: 1; }
-.grinder { position: absolute; z-index: 0; right: 6px; top: -70px; width: 118px; height: auto; pointer-events: none; }
-@media (min-width: 860px) { .grinder { right: -190px; top: -70px; width: 170px; } }
+.grinder { position: relative; z-index: 1; width: min(300px, 78%); height: auto; align-self: end; }
 .hero h1 em { font-style: normal; color: var(--brown); background: linear-gradient(transparent 64%, var(--rose-soft) 64%); }
 .hero p.lead { color: var(--muted); margin: 14px 0 0; max-width: 36ch; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
@@ -270,7 +269,6 @@ footer .wrap { padding-block: 48px 24px; display: flex; flex-wrap: wrap; align-i
     <div>
       <div class="kicker">부산 기장 정관 · since 2023</div>
       <div class="h1-box">
-        <svg class="grinder" id="grinder" viewBox="0 0 200 240" aria-hidden="true"></svg>
         <h1>바쁜 하루,<br>여기서는 <em>서행</em>하세요</h1>
       </div>
       <p class="lead">이름 그대로 잠깐 쉬어 가는 카페예요. 시그니처는 라떼 전부, 그리고 사장님이 직접 개발한 흑마늘 흑와플이에요.</p>
@@ -278,6 +276,7 @@ footer .wrap { padding-block: 48px 24px; display: flex; flex-wrap: wrap; align-i
       <div class="cta"><a class="btn dark" href="#latte">라떼 골라보기</a><a class="btn" href="#visit">오시는 길</a></div>
     </div>
     <div class="stage" aria-hidden="true">
+      <svg class="grinder" id="grinder" viewBox="0 0 300 330"></svg>
     </div>
   </div>
 </section>
@@ -458,49 +457,66 @@ footer .wrap { padding-block: 48px 24px; display: flex; flex-wrap: wrap; align-i
 <div class="toast" id="toast" hidden></div>
 
 <script>
-// 연필 스케치 느낌의 핸드밀 그라인더, 손잡이가 천천히 계속 돈다
+// 바닥에 놓인 핸드밀 그라인더 (왼쪽으로 15° 돌린 각도), 손잡이가 천천히 계속 돈다
 (() => {
   const sv = document.getElementById('grinder'); if (!sv) return;
-  const K = '#3A2E28';
-  const st = 'stroke="' + K + '" stroke-width="1.3" stroke-linejoin="round"';
-  const defs = '<defs>'
-    + '<filter id="pen" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3"/><feDisplacementMap in="SourceGraphic" scale="1.4"/></filter>'
-    + '<pattern id="hatch" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><line x1="0" y1="0" x2="0" y2="4" stroke="' + K + '" stroke-width=".7" opacity=".35"/></pattern>'
-    + '<linearGradient id="metal" x1="0" x2="1"><stop offset="0" stop-color="#5E5650"/><stop offset=".3" stop-color="#EDE7E1"/><stop offset=".55" stop-color="#8C837C"/><stop offset=".8" stop-color="#D6CFC8"/><stop offset="1" stop-color="#6E655F"/></linearGradient>'
-    + '<radialGradient id="inside" cx=".5" cy=".35" r=".7"><stop offset="0" stop-color="#9B928B"/><stop offset="1" stop-color="#3E3631"/></radialGradient>'
-    + '<linearGradient id="wood" x1="0" x2="1"><stop offset="0" stop-color="#9A6A45"/><stop offset=".45" stop-color="#C79A70"/><stop offset="1" stop-color="#7C5234"/></linearGradient>'
-    + '</defs>';
-  const box = '<ellipse cx="102" cy="230" rx="78" ry="9" fill="' + K + '" opacity=".12"/>'
-    + '<polygon points="30,146 100,168 100,230 30,208" fill="#CDAE8C" ' + st + '/>'
-    + '<polygon points="100,168 170,146 170,208 100,230" fill="#AC8763" ' + st + '/><polygon points="100,168 170,146 170,208 100,230" fill="url(#hatch)"/>'
-    + '<polygon points="42,174 90,189 90,216 42,200" fill="#BE9C78" ' + st + '/>'
-    + '<circle cx="66" cy="196" r="3.2" fill="url(#metal)" ' + st + '/>'
-    + '<text x="0" y="0" transform="translate(44 161) skewY(17.4)" font-family="Georgia, serif" font-style="italic" font-size="10" fill="' + K + '" opacity=".75">Coffee</text>'
-    + '<polygon points="24,138 100,162 100,171 24,147" fill="#B8956F" ' + st + '/>'
-    + '<polygon points="100,162 176,138 176,147 100,171" fill="#95704F" ' + st + '/>'
-    + '<polygon points="24,138 100,114 176,138 100,162" fill="#DCC0A0" ' + st + '/>'
-    + '<ellipse cx="100" cy="137" rx="36" ry="11" fill="#5E5650" ' + st + '/>'
-    + '<path d="M66 133 V128 A34 10 0 0 0 134 128 V133 A34 10 0 0 1 66 133 Z" fill="url(#metal)" ' + st + '/>'
-    + '<path d="M56 80 Q60 116 72 124 A28 8 0 0 0 128 124 Q140 116 144 80 Z" fill="url(#metal)" ' + st + '/>'
-    + '<ellipse cx="100" cy="80" rx="44" ry="14" fill="url(#metal)" ' + st + '/>'
-    + '<ellipse cx="100" cy="81.5" rx="38.5" ry="11" fill="url(#inside)" ' + st + '/>';
-  const shaft = '<rect x="97" y="56" width="6" height="26" fill="url(#metal)" ' + st + '/>'
-    + '<path d="M91 64 h18 v-7 l-3 -3 h-12 l-3 3 Z" fill="url(#metal)" ' + st + '/>'
-    + '<circle cx="100" cy="50" r="4.5" fill="url(#metal)" ' + st + '/>';
-  const R = 64, k = .38, cx = 100, cy = 58;
+  const O = '#2B1810', c = Math.cos(15 * Math.PI / 180), s = Math.sin(15 * Math.PI / 180), e = .32, CX = 122, GY = 300;
+  const p = (X, Y, Z) => [CX + X * c + Z * s, GY - Y - (Z * c - X * s) * e];
+  const pts = a => a.map(q => q.map(n => n.toFixed(1)).join(',')).join(' ');
+  const poly = (a, fill, w = 2) => '<polygon points="' + pts(a) + '" fill="' + fill + '" stroke="' + O + '" stroke-width="' + w + '" stroke-linejoin="round"/>';
+  const ell = (Y, r, fill, w = 2) => '<ellipse cx="' + CX + '" cy="' + (GY - Y) + '" rx="' + r + '" ry="' + (r * e).toFixed(1) + '" fill="' + fill + '" stroke="' + O + '" stroke-width="' + w + '"/>';
+  const grain = (face, n, col) => { let g = ''; for (let i = 1; i <= n; i++) { const a = []; for (let k = 0; k <= 12; k++) a.push(face(k / 12, i / (n + 1) + Math.sin(k * 1.3 + i * 2) * .018)); g += '<polyline points="' + pts(a) + '" fill="none" stroke="' + col + '" stroke-width="1.1" opacity=".55"/>'; } return g; };
+  const defs = '<defs><filter id="soft" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="5"/></filter>'
+    + '<linearGradient id="iron" x1="0" x2="1"><stop offset="0" stop-color="#2F2A27"/><stop offset=".28" stop-color="#6E6660"/><stop offset=".42" stop-color="#9A928A"/><stop offset=".6" stop-color="#4A4440"/><stop offset="1" stop-color="#2A2523"/></linearGradient>'
+    + '<linearGradient id="copper" x1="0" x2="1"><stop offset="0" stop-color="#6E2E14"/><stop offset=".35" stop-color="#B8622F"/><stop offset=".5" stop-color="#D98A55"/><stop offset="1" stop-color="#7A3518"/></linearGradient>'
+    + '<linearGradient id="brass" x1="0" x2="1"><stop offset="0" stop-color="#7A4A22"/><stop offset=".45" stop-color="#C98A4E"/><stop offset="1" stop-color="#6A3C1C"/></linearGradient>'
+    + '<linearGradient id="knob" x1="0" x2="1"><stop offset="0" stop-color="#6A2E14"/><stop offset=".4" stop-color="#C06A35"/><stop offset="1" stop-color="#5E2810"/></linearGradient></defs>';
+  // 바닥 그림자: 오른쪽 뒤로 길게 + 바닥에 닿는 진한 접지 그림자
+  let g = '<polygon points="' + pts([p(-52, 0, -52), p(52, 0, -52), p(118, 0, 40), p(112, 0, 96), p(10, 0, 96), p(-52, 0, 52)]) + '" fill="#2E2019" opacity=".42" filter="url(#soft)"/>';
+  g += '<polygon points="' + pts([p(-55, 0, -55), p(55, 0, -55), p(55, 0, 55), p(-55, 0, 55)]) + '" fill="#1E120C" opacity=".6" filter="url(#soft)" transform="translate(2 2)"/>';
+  // 상자 몸통
+  const B = 52, H = 78;
+  g += poly([p(-B, 0, -B), p(B, 0, -B), p(B, H, -B), p(-B, H, -B)], '#B8662F');
+  g += grain((u, v) => p(-B + u * 2 * B, v * H, -B), 5, '#6B3317');
+  g += poly([p(B, 0, -B), p(B, 0, B), p(B, H, B), p(B, H, -B)], '#7E3C19');
+  g += grain((u, v) => p(B, v * H, -B + u * 2 * B), 4, '#4A200C');
+  // 서랍 + 손잡이
+  g += poly([p(-38, 12, -B), p(38, 12, -B), p(38, 58, -B), p(-38, 58, -B)], '#C97A3E');
+  g += grain((u, v) => p(-38 + u * 76, 12 + v * 46, -B), 3, '#7A3A18');
+  const h1 = p(-14, 38, -B - 1), h2 = p(14, 38, -B - 1), hc = p(0, 30, -B - 1);
+  g += '<path d="M' + h1.join(' ') + ' L' + h1[0] + ' ' + (h1[1] + 7) + ' L' + h2[0] + ' ' + (h2[1] + 7) + ' L' + h2.join(' ') + '" fill="none" stroke="' + O + '" stroke-width="7" stroke-linecap="round"/><path d="M' + h1.join(' ') + ' L' + h1[0] + ' ' + (h1[1] + 7) + ' L' + h2[0] + ' ' + (h2[1] + 7) + ' L' + h2.join(' ') + '" fill="none" stroke="url(#knob)" stroke-width="4" stroke-linecap="round"/>';
+  // 뚜껑 판
+  const L = 58, T = 88;
+  g += poly([p(-L, H, -L), p(L, H, -L), p(L, T, -L), p(-L, T, -L)], '#A9572A');
+  g += poly([p(L, H, -L), p(L, H, L), p(L, T, L), p(L, T, -L)], '#6E3215');
+  g += poly([p(-L, T, -L), p(L, T, -L), p(L, T, L), p(-L, T, L)], '#D08A4E');
+  g += grain((u, v) => p(-L + u * 2 * L, T, -L + v * 2 * L), 4, '#8A4520');
+  // 구리 받침 돔
+  g += ell(T + 1, 42, '#5E2810');
+  g += '<path d="M' + (CX - 42) + ' ' + (GY - T - 2) + ' Q' + (CX - 38) + ' ' + (GY - T - 26) + ' ' + (CX - 22) + ' ' + (GY - T - 30) + ' L' + (CX + 22) + ' ' + (GY - T - 30) + ' Q' + (CX + 38) + ' ' + (GY - T - 26) + ' ' + (CX + 42) + ' ' + (GY - T - 2) + ' A42 13.4 0 0 1 ' + (CX - 42) + ' ' + (GY - T - 2) + ' Z" fill="url(#copper)" stroke="' + O + '" stroke-width="2"/>';
+  g += ell(T + 31, 25, '#3A2420');
+  // 무쇠 그릇
+  const b0 = T + 34, b1 = T + 92;
+  g += '<path d="M' + (CX - 26) + ' ' + (GY - b0) + ' Q' + (CX - 60) + ' ' + (GY - b0 - 12) + ' ' + (CX - 60) + ' ' + (GY - b1) + ' L' + (CX + 60) + ' ' + (GY - b1) + ' Q' + (CX + 60) + ' ' + (GY - b0 - 12) + ' ' + (CX + 26) + ' ' + (GY - b0) + ' A26 8.3 0 0 1 ' + (CX - 26) + ' ' + (GY - b0) + ' Z" fill="url(#iron)" stroke="' + O + '" stroke-width="2"/>';
+  g += '<path d="M' + (CX - 34) + ' ' + (GY - b1 + 10) + ' Q' + (CX - 30) + ' ' + (GY - b0 - 14) + ' ' + (CX - 14) + ' ' + (GY - b0 - 4) + '" fill="none" stroke="#C9C1B9" stroke-width="3" opacity=".5" stroke-linecap="round"/>';
+  g += ell(b1, 62, '#4A4440', 2.4) + ell(b1 + 1, 54, '#1F1A18', 1.5);
+  // 축 · 너트 · 손잡이
+  const P0 = b1 + 30, R = 82;
+  const shaft = '<rect x="' + (CX - 5) + '" y="' + (GY - P0 - 4) + '" width="10" height="' + (P0 - b1 + 4) + '" fill="url(#brass)" stroke="' + O + '" stroke-width="1.8"/>'
+    + '<path d="M' + (CX - 15) + ' ' + (GY - P0 + 12) + ' h30 v-10 l-5 -5 h-20 l-5 5 Z" fill="url(#brass)" stroke="' + O + '" stroke-width="1.8" stroke-linejoin="round"/>'
+    + '<ellipse cx="' + CX + '" cy="' + (GY - P0 - 8) + '" rx="7" ry="9" fill="url(#knob)" stroke="' + O + '" stroke-width="1.8"/>';
   function arm(th) {
-    const ex = cx + R * Math.cos(th), ey = cy + R * k * Math.sin(th);
-    const mx = (cx + ex) / 2, my = (cy + ey) / 2 - 7;
-    return '<path d="M' + cx + ' ' + cy + ' Q' + mx.toFixed(1) + ' ' + my.toFixed(1) + ' ' + ex.toFixed(1) + ' ' + ey.toFixed(1) + '" fill="none" stroke="' + K + '" stroke-width="7.5" stroke-linecap="round"/>'
-      + '<path d="M' + cx + ' ' + cy + ' Q' + mx.toFixed(1) + ' ' + my.toFixed(1) + ' ' + ex.toFixed(1) + ' ' + ey.toFixed(1) + '" fill="none" stroke="url(#metal)" stroke-width="5" stroke-linecap="round"/>'
-      + '<rect x="' + (ex - 2).toFixed(1) + '" y="' + (ey - 8).toFixed(1) + '" width="4" height="8" fill="url(#metal)" ' + st + '/>'
-      + '<rect x="' + (ex - 7).toFixed(1) + '" y="' + (ey - 34).toFixed(1) + '" width="14" height="27" rx="7" fill="url(#wood)" ' + st + '/>'
-      + '<ellipse cx="' + ex.toFixed(1) + '" cy="' + (ey - 31).toFixed(1) + '" rx="5" ry="2" fill="#D9B48C" opacity=".8"/>';
+    const ex = CX + R * Math.cos(th), ey = GY - P0 + R * e * Math.sin(th), my = (GY - P0 + ey) / 2 - 4;
+    const d = 'M' + CX + ' ' + (GY - P0) + ' Q' + ((CX + ex) / 2).toFixed(1) + ' ' + my.toFixed(1) + ' ' + ex.toFixed(1) + ' ' + ey.toFixed(1);
+    const k = 'M' + (ex - 4) + ' ' + (ey + 4) + ' h8 l-1 6 q6 3 5 10 q-1 8 -5 9 l1 10 q4 2 2 6 h-12 q-2 -4 2 -6 l1 -10 q-4 -1 -5 -9 q-1 -7 5 -10 Z';
+    return '<path d="' + d + '" fill="none" stroke="' + O + '" stroke-width="8" stroke-linecap="round"/><path d="' + d + '" fill="none" stroke="url(#brass)" stroke-width="4.5" stroke-linecap="round"/>'
+      + '<circle cx="' + ex.toFixed(1) + '" cy="' + ey.toFixed(1) + '" r="4.5" fill="url(#brass)" stroke="' + O + '" stroke-width="1.6"/>'
+      + '<path d="' + k + '" fill="url(#knob)" stroke="' + O + '" stroke-width="1.8" stroke-linejoin="round" transform="translate(' + (0) + ' 0)"/>';
   }
-  sv.innerHTML = defs + '<g filter="url(#pen)"><g>' + box + '</g><g id="g-top"></g></g>';
+  sv.innerHTML = defs + g + '<g id="g-top"></g>';
   const top = sv.querySelector('#g-top');
   const draw = th => { top.innerHTML = Math.sin(th) < 0 ? arm(th) + shaft : shaft + arm(th); };
-  let th = .6; draw(th);
+  let th = .5; draw(th);
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   let last = performance.now();
   const tick = now => { th += (now - last) / 1000 * (Math.PI * 2 / 7); last = now; draw(th); requestAnimationFrame(tick); };
