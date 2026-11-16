@@ -58,7 +58,8 @@ nav.links a { text-decoration: none; color: var(--muted); }
 .hero h1 { font-size: clamp(32px, 7.6vw, 52px); line-height: 1.25; margin-top: 12px; }
 .h1-box { position: relative; isolation: isolate; }
 .h1-box h1 { position: relative; z-index: 1; }
-.cross { position: relative; z-index: 1; width: min(440px, 100%); height: auto; }
+.grinder { position: absolute; z-index: 0; right: 6px; top: -70px; width: 118px; height: auto; pointer-events: none; }
+@media (min-width: 860px) { .grinder { right: -190px; top: -70px; width: 170px; } }
 .hero h1 em { font-style: normal; color: var(--brown); background: linear-gradient(transparent 64%, var(--rose-soft) 64%); }
 .hero p.lead { color: var(--muted); margin: 14px 0 0; max-width: 36ch; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
@@ -269,6 +270,7 @@ footer .wrap { padding-block: 48px 24px; display: flex; flex-wrap: wrap; align-i
     <div>
       <div class="kicker">부산 기장 정관 · since 2023</div>
       <div class="h1-box">
+        <svg class="grinder" id="grinder" viewBox="0 0 200 240" aria-hidden="true"></svg>
         <h1>바쁜 하루,<br>여기서는 <em>서행</em>하세요</h1>
       </div>
       <p class="lead">이름 그대로 잠깐 쉬어 가는 카페예요. 시그니처는 라떼 전부, 그리고 사장님이 직접 개발한 흑마늘 흑와플이에요.</p>
@@ -276,7 +278,6 @@ footer .wrap { padding-block: 48px 24px; display: flex; flex-wrap: wrap; align-i
       <div class="cta"><a class="btn dark" href="#latte">라떼 골라보기</a><a class="btn" href="#visit">오시는 길</a></div>
     </div>
     <div class="stage" aria-hidden="true">
-      <svg class="cross" id="cross" viewBox="0 0 420 380"></svg>
     </div>
   </div>
 </section>
@@ -457,45 +458,53 @@ footer .wrap { padding-block: 48px 24px; display: flex; flex-wrap: wrap; align-i
 <div class="toast" id="toast" hidden></div>
 
 <script>
-// 사선으로 보이는 횡단보도와 그 위에 멈춰 선 네 사람 (원근)
+// 연필 스케치 느낌의 핸드밀 그라인더, 손잡이가 천천히 계속 돈다
 (() => {
-  const sv = document.getElementById('cross'); if (!sv) return;
-  const N1 = [20, 250], N2 = [178, 372], F1 = [372, 92], F2 = [414, 114];
-  const L = (a, b, k) => [a[0] + (b[0] - a[0]) * k, a[1] + (b[1] - a[1]) * k];
-  const sp = u => 2.4 * u / (1 + 1.4 * u);              // 멀수록 촘촘하게
-  const P = (u, v) => { const k = sp(u); return L(L(N1, F1, k), L(N2, F2, k), v); };
-  const quad = (u0, u1, v0, v1) => [P(u0, v0), P(u1, v0), P(u1, v1), P(u0, v1)].map(p => p.map(n => n.toFixed(1)).join(',')).join(' ');
-  let h = '<defs><radialGradient id="rd" gradientUnits="userSpaceOnUse" cx="190" cy="250" r="210"><stop offset="0" stop-color="#6F655C" stop-opacity=".6"/><stop offset=".6" stop-color="#8E8379" stop-opacity=".35"/><stop offset="1" stop-color="#A69A8E" stop-opacity="0"/></radialGradient>'
-        + '<linearGradient id="st" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#FFFDF9"/><stop offset="1" stop-color="#FFFDF9" stop-opacity=".25"/></linearGradient></defs>';
-  h += '<polygon points="' + quad(-0.2, 1.3, -0.5, 1.5) + '" fill="url(#rd)"/>';
-  for (let i = 0; i < 9; i++) { const u0 = i / 9; h += '<polygon points="' + quad(u0, u0 + 0.6 / 9, 0, 1) + '" fill="url(#st)"/>'; }
-  // 옆모습 실루엣 한 명 (발끝 기준, 키 100)
-  const C = '#3A2418';
-  const seg = (pts, w) => '<polyline points="' + pts.map(p => p.join(',')).join(' ') + '" fill="none" stroke="' + C + '" stroke-width="' + w + '" stroke-linecap="round" stroke-linejoin="round"/>';
-  function person(k, hair, bag) {
-    const s = k;   // 보폭
-    let g = '';
-    // 뒷다리 · 뒷팔
-    g += seg([[0, -50], [-6 * s, -27]], 9) + seg([[-6 * s, -27], [-15 * s, -7]], 7) + seg([[-15 * s, -7], [-10 * s, -1.5]], 4.5);
-    g += seg([[-1, -78], [-6 * s, -64]], 5.5) + seg([[-6 * s, -64], [-9 * s, -53]], 4.5);
-    // 몸통 · 목 · 머리
-    g += '<polygon points="-5.5,-82 5.5,-81.5 7,-70 5,-52 -5,-50 -6.5,-68" fill="' + C + '" stroke="' + C + '" stroke-width="3" stroke-linejoin="round"/>';
-    g += seg([[0.5, -82], [1.5, -86]], 5);
-    g += '<ellipse cx="2" cy="-91.5" rx="5.6" ry="6.6" fill="' + C + '"/>';
-    if (hair) g += '<path d="M-3,-96 Q-7,-88 -5.5,-79 L-1,-80 Q-2,-88 1,-95 Z" fill="' + C + '"/>';
-    // 앞다리 · 앞팔
-    g += seg([[0, -50], [8 * s, -27]], 9.5) + seg([[8 * s, -27], [13 * s, -4]], 7) + seg([[13 * s, -4], [20 * s, -1]], 4.5);
-    g += seg([[1, -78], [5 * s, -64]], 5.5) + seg([[5 * s, -64], [11 * s, -56]], 4.5);
-    if (bag) g += '<rect x="' + (11 * s - 3) + '" y="-56" width="6" height="8" rx="1.2" fill="#FFFDF9"/>';
-    return g;
+  const sv = document.getElementById('grinder'); if (!sv) return;
+  const K = '#3A2E28';
+  const st = 'stroke="' + K + '" stroke-width="1.3" stroke-linejoin="round"';
+  const defs = '<defs>'
+    + '<filter id="pen" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="1" seed="3"/><feDisplacementMap in="SourceGraphic" scale="1.4"/></filter>'
+    + '<pattern id="hatch" width="4" height="4" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><line x1="0" y1="0" x2="0" y2="4" stroke="' + K + '" stroke-width=".7" opacity=".35"/></pattern>'
+    + '<linearGradient id="metal" x1="0" x2="1"><stop offset="0" stop-color="#5E5650"/><stop offset=".3" stop-color="#EDE7E1"/><stop offset=".55" stop-color="#8C837C"/><stop offset=".8" stop-color="#D6CFC8"/><stop offset="1" stop-color="#6E655F"/></linearGradient>'
+    + '<radialGradient id="inside" cx=".5" cy=".35" r=".7"><stop offset="0" stop-color="#9B928B"/><stop offset="1" stop-color="#3E3631"/></radialGradient>'
+    + '<linearGradient id="wood" x1="0" x2="1"><stop offset="0" stop-color="#9A6A45"/><stop offset=".45" stop-color="#C79A70"/><stop offset="1" stop-color="#7C5234"/></linearGradient>'
+    + '</defs>';
+  const box = '<ellipse cx="102" cy="230" rx="78" ry="9" fill="' + K + '" opacity=".12"/>'
+    + '<polygon points="30,146 100,168 100,230 30,208" fill="#CDAE8C" ' + st + '/>'
+    + '<polygon points="100,168 170,146 170,208 100,230" fill="#AC8763" ' + st + '/><polygon points="100,168 170,146 170,208 100,230" fill="url(#hatch)"/>'
+    + '<polygon points="42,174 90,189 90,216 42,200" fill="#BE9C78" ' + st + '/>'
+    + '<circle cx="66" cy="196" r="3.2" fill="url(#metal)" ' + st + '/>'
+    + '<text x="0" y="0" transform="translate(44 161) skewY(17.4)" font-family="Georgia, serif" font-style="italic" font-size="10" fill="' + K + '" opacity=".75">Coffee</text>'
+    + '<polygon points="24,138 100,162 100,171 24,147" fill="#B8956F" ' + st + '/>'
+    + '<polygon points="100,162 176,138 176,147 100,171" fill="#95704F" ' + st + '/>'
+    + '<polygon points="24,138 100,114 176,138 100,162" fill="#DCC0A0" ' + st + '/>'
+    + '<ellipse cx="100" cy="137" rx="36" ry="11" fill="#5E5650" ' + st + '/>'
+    + '<path d="M66 133 V128 A34 10 0 0 0 134 128 V133 A34 10 0 0 1 66 133 Z" fill="url(#metal)" ' + st + '/>'
+    + '<path d="M56 80 Q60 116 72 124 A28 8 0 0 0 128 124 Q140 116 144 80 Z" fill="url(#metal)" ' + st + '/>'
+    + '<ellipse cx="100" cy="80" rx="44" ry="14" fill="url(#metal)" ' + st + '/>'
+    + '<ellipse cx="100" cy="81.5" rx="38.5" ry="11" fill="url(#inside)" ' + st + '/>';
+  const shaft = '<rect x="97" y="56" width="6" height="26" fill="url(#metal)" ' + st + '/>'
+    + '<path d="M91 64 h18 v-7 l-3 -3 h-12 l-3 3 Z" fill="url(#metal)" ' + st + '/>'
+    + '<circle cx="100" cy="50" r="4.5" fill="url(#metal)" ' + st + '/>';
+  const R = 64, k = .38, cx = 100, cy = 58;
+  function arm(th) {
+    const ex = cx + R * Math.cos(th), ey = cy + R * k * Math.sin(th);
+    const mx = (cx + ex) / 2, my = (cy + ey) / 2 - 7;
+    return '<path d="M' + cx + ' ' + cy + ' Q' + mx.toFixed(1) + ' ' + my.toFixed(1) + ' ' + ex.toFixed(1) + ' ' + ey.toFixed(1) + '" fill="none" stroke="' + K + '" stroke-width="7.5" stroke-linecap="round"/>'
+      + '<path d="M' + cx + ' ' + cy + ' Q' + mx.toFixed(1) + ' ' + my.toFixed(1) + ' ' + ex.toFixed(1) + ' ' + ey.toFixed(1) + '" fill="none" stroke="url(#metal)" stroke-width="5" stroke-linecap="round"/>'
+      + '<rect x="' + (ex - 2).toFixed(1) + '" y="' + (ey - 8).toFixed(1) + '" width="4" height="8" fill="url(#metal)" ' + st + '/>'
+      + '<rect x="' + (ex - 7).toFixed(1) + '" y="' + (ey - 34).toFixed(1) + '" width="14" height="27" rx="7" fill="url(#wood)" ' + st + '/>'
+      + '<ellipse cx="' + ex.toFixed(1) + '" cy="' + (ey - 31).toFixed(1) + '" rx="5" ry="2" fill="#D9B48C" opacity=".8"/>';
   }
-  const W = [[0.10, 1, 1, 0], [0.33, .85, 0, 0], [0.54, 1, 0, 1], [0.72, .9, 0, 0]];
-  W.slice().reverse().forEach(([u, k, hair, bag]) => {
-    const f = P(u, 0.5), w = Math.hypot(...[0, 1].map(j => L(N2, F2, sp(u))[j] - L(N1, F1, sp(u))[j])), sc = w * 0.95 / 100;
-    h += '<ellipse cx="' + (f[0] - 4 * sc) + '" cy="' + f[1] + '" rx="' + (16 * sc) + '" ry="' + (3.2 * sc) + '" fill="#2E2019" opacity=".18"/>';
-    h += '<g transform="translate(' + f[0].toFixed(1) + ' ' + f[1].toFixed(1) + ') scale(' + sc.toFixed(3) + ')">' + person(k, hair, bag) + '</g>';
-  });
-  sv.innerHTML = h;
+  sv.innerHTML = defs + '<g filter="url(#pen)"><g>' + box + '</g><g id="g-top"></g></g>';
+  const top = sv.querySelector('#g-top');
+  const draw = th => { top.innerHTML = Math.sin(th) < 0 ? arm(th) + shaft : shaft + arm(th); };
+  let th = .6; draw(th);
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let last = performance.now();
+  const tick = now => { th += (now - last) / 1000 * (Math.PI * 2 / 7); last = now; draw(th); requestAnimationFrame(tick); };
+  requestAnimationFrame(tick);
 })();const won = n => n.toLocaleString('ko-KR') + '원';
 const $ = id => document.getElementById(id);
 const MILK = '#EDE0CE', ESP = '#5B331F', CREMA = '#9C6B45';
